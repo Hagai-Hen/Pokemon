@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-interface Pokemon {
+export interface Pokemon {
     name: string;
     id: number;
     types: string[];
@@ -25,11 +25,9 @@ const useGetPokemons = () => {
                 acc[stat.stat.name] = stat.base_stat;
                 return acc;
             }, {});
-
-            // Calculate the total of all base stats
+            
+            // add total
             const total = data.stats.reduce((sum: number, stat: any) => sum + stat.base_stat, 0);
-
-            // Add total to stats
             stats['total'] = total;
 
             return {
@@ -44,7 +42,7 @@ const useGetPokemons = () => {
         const getPokemons = async () => {
             try {
                 setLoading(true);
-                const response = await fetch(`https://pokeapi.co/api/v2/pokemon`);
+                const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=12`);
                 const data = await response.json();
                 
                 const pokemonDetailsPromises = data.results.map((item: any) => fetchPokemonDetails(item.url));
@@ -64,7 +62,7 @@ const useGetPokemons = () => {
 
         }
         getPokemons();
-    }, [setPokemons]); // runs when setCodeBlocks changes
+    }, []);
     return { pokemons, setPokemons, loading };
 }
 

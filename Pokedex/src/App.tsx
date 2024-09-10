@@ -1,6 +1,7 @@
 import { NavBar } from "./components/NavBar/NavBar";
 import {DropDown} from './components/DropDown/DropDown';
 import { useState } from "react";
+import PokeGrid from "./components/PokeGrid/PokeGrid";
 import useGetPokemons from "./hooks/useGetPokemons";
 
 function App() {
@@ -11,12 +12,12 @@ function App() {
   });
 
   const {pokemons} = useGetPokemons();
-  console.log("hey", pokemons);
 
   return (
     <>
       <NavBar/>
       <DropDown options={recentSearches}/>
+      <PokeGrid pokemons={pokemons}/>
     </>
   )
 }
