@@ -1,5 +1,6 @@
 import { ReactNode } from "react";
 import { NavigatorButton } from "./styles";
+import { colors } from '../../colors';
 
 type NavButtonProps = {
     isClicked?: boolean,
@@ -9,7 +10,7 @@ type NavButtonProps = {
 export const NavButton = ({ children, isClicked = false }: NavButtonProps) => {
     return (
         <>
-            {isClicked ? <NavigatorButton backgroundColor="#94D97E">{children}</NavigatorButton> : <NavigatorButton>{children}</NavigatorButton> }
+            {isClicked ? <NavigatorButton backgroundColor={colors.secondary}>{children}</NavigatorButton> : <NavigatorButton>{children}</NavigatorButton> }
         </>
     )
 }

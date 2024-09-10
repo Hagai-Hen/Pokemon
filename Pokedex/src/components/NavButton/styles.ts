@@ -1,11 +1,12 @@
 import styled from "styled-components";
+import { colors } from "../../colors";
 
 interface NavigatorButtonProps {
     backgroundColor?: string;
   }
 
 export const NavigatorButton = styled.button<NavigatorButtonProps>`
-    background-color: ${({ backgroundColor }) => backgroundColor || '#373299'};
+    background-color: ${({ backgroundColor }) => backgroundColor || colors.primary};
     color: black;
     width: 100px;
     height: 67px;
