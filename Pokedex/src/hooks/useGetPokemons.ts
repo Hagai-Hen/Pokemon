@@ -48,7 +48,7 @@ const useGetPokemons = (initialUrl: string = 'https://pokeapi.co/api/v2/pokemon?
             const pokemonDetailsPromises = data.results.map((item: any) => fetchPokemonDetails(item.url));
             const pokemonList = await Promise.all(pokemonDetailsPromises);
 
-            setNext(data.next || null); // Set next URL or null if no more pages
+            setNext(data.next || null);
 
             setPokemons(prevPokemons => {
                 const existingPokemonIds = new Set(prevPokemons.map(p => p.id));
