@@ -28,7 +28,6 @@ export const ButtonsContainer = styled.div`
     display: flex;
     justify-content: flex-end;
 
-    /* Media Queries for responsiveness */
     @media (max-width: 480px) {
         display: none;
     }
