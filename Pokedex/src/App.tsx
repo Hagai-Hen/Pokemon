@@ -12,7 +12,7 @@ function App() {
     <NavBar activePage={activePage} />
       <Routes>
         <Route path="/" element={<HomePage setActivePage={setActivePage} />} />
-        <Route path="/fav" element={<FavoritePage setActivePage={setActivePage}/>} />
+        <Route path="/fav" element={<FavoritePage setActivePage={setActivePage} />} />
       </Routes>
     </>
   )

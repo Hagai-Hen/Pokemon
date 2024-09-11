@@ -8,7 +8,6 @@ export const GridContainer = styled.div`
     border-radius: 9px;
     border: 1px solid transparent;
     max-width: 1070px;
-    max-height: 870px;
     margin: auto;
 
     @media (max-width: 1200px) {
@@ -22,4 +21,17 @@ export const GridContainer = styled.div`
     @media (max-width: 600px) {
         grid-template-columns: 1fr;
     }
+`;
+
+export const ButtonContainer = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 50px;
+    box-sizing: border-box;
+`;
+
+export const Container = styled.div`
+    position: relative;
+    display: inline-block;
 `;

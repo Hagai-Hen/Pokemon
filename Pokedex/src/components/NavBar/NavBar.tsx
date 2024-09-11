@@ -1,7 +1,6 @@
 import { NavigatorBar, ButtonsContainer } from "./styles";
 import logo from '../../assets/logo.png';
 import { NavButton } from "../NavButton/NavButton";
-import { Navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 
 interface NavBarProps {

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 
 export interface Pokemon {
     name: string;
@@ -10,60 +10,71 @@ export interface Pokemon {
     };
 }
 
-const useGetPokemons = () => {
+const useGetPokemons = (initialUrl: string = 'https://pokeapi.co/api/v2/pokemon?limit=12') => {
     const [loading, setLoading] = useState<boolean>(false);
     const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+    const [next, setNext] = useState<string | null>(initialUrl);
 
-    useEffect(() => {
-        // Function to fetch pokemons
+    const fetchPokemonDetails = useCallback(async (url: string): Promise<Pokemon> => {
+        const response = await fetch(url);
+        const data = await response.json();
 
-        const fetchPokemonDetails = async (url: string): Promise<Pokemon> => {
+        const stats = data.stats.reduce((acc: { [key: string]: number }, stat: any) => {
+            acc[stat.stat.name] = stat.base_stat;
+            return acc;
+        }, {});
+        const total = data.stats.reduce((sum: number, stat: any) => sum + stat.base_stat, 0);
+        stats['total'] = total;
+
+        return {
+            name: data.name,
+            id: data.id,
+            types: data.types.map((t: any) => t.type.name),
+            picture: data.sprites.front_default,
+            stats: stats
+        };
+    }, []);
+
+    const getPokemons = useCallback(async (url: string) => {
+        try {
+            setLoading(true);
             const response = await fetch(url);
             const data = await response.json();
 
-            const stats = data.stats.reduce((acc: { [key: string]: number }, stat: any) => {
-                acc[stat.stat.name] = stat.base_stat;
-                return acc;
-            }, {});
-            
-            // add total
-            const total = data.stats.reduce((sum: number, stat: any) => sum + stat.base_stat, 0);
-            stats['total'] = total;
+            if (data.error) {
+                throw new Error(data.error);
+            }
 
-            return {
-                name: data.name,
-                id: data.id,
-                types: data.types.map((t: any) => t.type.name),
-                picture: data.sprites.front_default,
-                stats: stats
-            };
-        };
+            const pokemonDetailsPromises = data.results.map((item: any) => fetchPokemonDetails(item.url));
+            const pokemonList = await Promise.all(pokemonDetailsPromises);
 
-        const getPokemons = async () => {
-            try {
-                setLoading(true);
-                const response = await fetch(`https://pokeapi.co/api/v2/pokemon?limit=12`);
-                const data = await response.json();
-                
-                const pokemonDetailsPromises = data.results.map((item: any) => fetchPokemonDetails(item.url));
-                const pokemonList = await Promise.all(pokemonDetailsPromises);
+            setNext(data.next || null); // Set next URL or null if no more pages
 
-                setPokemons(pokemonList);
-                if (data.error) {
-                    throw new Error(data.error);
-                }
-
-            } catch (error)
-             {
-                console.log("Error getting code blocks:", error);
-            } finally {
-                setLoading(false);
-            };
-
+            setPokemons(prevPokemons => {
+                const existingPokemonIds = new Set(prevPokemons.map(p => p.id));
+                const newPokemons = pokemonList.filter(p => !existingPokemonIds.has(p.id));
+                return [...prevPokemons, ...newPokemons];
+            });
+        } catch (error) {
+            console.error("Error getting pokemons:", error);
+        } finally {
+            setLoading(false);
         }
-        getPokemons();
-    }, []);
-    return { pokemons, setPokemons, loading };
+    }, [fetchPokemonDetails]);
+
+    const loadMore = useCallback(() => {
+        if (next) {
+            getPokemons(next);
+        }
+    }, [next, getPokemons]);
+
+    useEffect(() => {
+        if (initialUrl) {
+            getPokemons(initialUrl);
+        }
+    }, [initialUrl, getPokemons]);
+
+    return { pokemons, loading, loadMore, next };
 }
 
 export default useGetPokemons;

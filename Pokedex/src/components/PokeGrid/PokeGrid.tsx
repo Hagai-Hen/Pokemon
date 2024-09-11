@@ -1,13 +1,15 @@
 import PokeCard from '../PokeCard/PokeCard';
-import { Pokemon } from '../../hooks/useGetPokemons';
-import { GridContainer } from './styles';
+import useGetPokemons from '../../hooks/useGetPokemons';
+import { ButtonContainer, GridContainer } from './styles';
+import Button from '../Button/Button';
 
 interface PokeGridProps {
-    pokemons: Pokemon[];
     selectedOption: string,
 }
 
-export const PokeGrid  = ({ pokemons, selectedOption } : PokeGridProps) => {
+export const PokeGrid  = ({ selectedOption } : PokeGridProps) => {
+    const { pokemons, loadMore } = useGetPokemons(); // Use the hook to manage Pokémon data
+
 
     const filteredPokemons = pokemons.filter(p => {
         
@@ -19,11 +21,17 @@ export const PokeGrid  = ({ pokemons, selectedOption } : PokeGridProps) => {
     });
 
     return (
+        <>
         <GridContainer>
             {filteredPokemons.map((p) => (
                 <PokeCard key={p.id} pokemon={p} />
             ))}
         </GridContainer>
+        
+        <ButtonContainer>
+            {!selectedOption &&<Button backgroundColor='white' textColor='#373299' onClick={loadMore}> Load More... </Button>}
+        </ButtonContainer>
+        </>
     );
 };
 
