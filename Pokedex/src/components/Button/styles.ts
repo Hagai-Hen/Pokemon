@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "../../colors";
 
 interface ButtonProps {
     backgroundColor?: string;
@@ -12,6 +13,6 @@ export const StyledButton = styled.button<ButtonProps>`
     text-align: center;
     cursor: pointer;
     border-radius: 9px;
-    border: 1px solid #373299;
+    border: 1px solid ${colors.primary};
     padding: 0 20px;
 `;

@@ -15,6 +15,6 @@ export const NavigatorButton = styled.button<NavigatorButtonProps>`
     cursor: pointer;
     transition: background-color 0.3s; /* Smooth transition for background color */
     &:hover {
-        background-color: #94D97E;
+        background-color: ${colors.secondary};
     }
 `;
