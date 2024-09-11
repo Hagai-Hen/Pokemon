@@ -3,13 +3,14 @@ import { NavigatorButton } from "./styles";
 
 type NavButtonProps = {
     isClicked?: boolean,
-    children: ReactNode
+    children: ReactNode,
+    onClick: () => void,
 }
 
-export const NavButton = ({ children, isClicked = false }: NavButtonProps) => {
+export const NavButton = ({ children, isClicked = false, onClick }: NavButtonProps) => {
     return (
         <>
-            {isClicked ? <NavigatorButton backgroundColor="#94D97E">{children}</NavigatorButton> : <NavigatorButton>{children}</NavigatorButton> }
+            {isClicked ? <NavigatorButton backgroundColor="#94D97E" onClick={onClick}>{children}</NavigatorButton> : <NavigatorButton onClick={onClick}>{children}</NavigatorButton> }
         </>
     )
 }

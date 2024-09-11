@@ -4,12 +4,23 @@ import { GridContainer } from './styles';
 
 interface PokeGridProps {
     pokemons: Pokemon[];
+    selectedOption: string,
 }
 
-export const PokeGrid  = ({ pokemons } : PokeGridProps) => {
+export const PokeGrid  = ({ pokemons, selectedOption } : PokeGridProps) => {
+
+    const filteredPokemons = pokemons.filter(p => {
+        
+        if (selectedOption.trim() === '') {
+            return true;
+        }
+    
+        return p.id === Number(selectedOption) || p.name.toLowerCase().includes(selectedOption.toLowerCase());
+    });
+
     return (
         <GridContainer>
-            {pokemons.map((p) => (
+            {filteredPokemons.map((p) => (
                 <PokeCard key={p.id} pokemon={p} />
             ))}
         </GridContainer>
