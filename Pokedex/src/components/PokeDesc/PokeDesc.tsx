@@ -1,7 +1,7 @@
-import { ButtonContainer, DescContainer, DescSection, IconContainer, IdContainer, LeftContainer, RightContainer, Separator, StatsContainer, StatsSection, TitleContainer, } from './styles';
+import { HomePageButton, ClearButtonWrapper ,ButtonContainer, DescContainer, DescSection, IconContainer, IdContainer, LeftContainer, RightContainer, Separator, StatsContainer, StatsSection, TitleContainer, Container, } from './styles';
 import { Pokemon } from '../../hooks/useGetPokemons';
 import FavIcon from '../../assets/fav_icon.png';
-import { ClearButton } from '../DropDown/styles';
+import Button from '../Button/Button';
 
 interface PokeDescProps {
     pokemon: Pokemon;
@@ -15,14 +15,19 @@ export const PokeDesc  = ({ pokemon, setSelectedPokemon } : PokeDescProps) => {
     }
 
     return (
-        <>
-            <ClearButton onClick={handleClick}>Home Page</ClearButton>
+        <Container>
+            <ClearButtonWrapper>
+                <HomePageButton onClick={handleClick}>Home Page</HomePageButton>
+            </ClearButtonWrapper>
             <DescContainer>
                 <IdContainer>#{pokemon.id}</IdContainer>
                 <IconContainer><img src={FavIcon} /></IconContainer>
                 <LeftContainer>
                     <img src={pokemon.picture} />
                     <TitleContainer>{pokemon.name}</TitleContainer>
+                    <ButtonContainer>
+                        {pokemon.types.map(type => (<Button>{type}</Button>))}
+                    </ButtonContainer>
                 </LeftContainer>
                 <Separator />
                 <RightContainer>
@@ -48,7 +53,7 @@ export const PokeDesc  = ({ pokemon, setSelectedPokemon } : PokeDescProps) => {
                     </StatsContainer>
                 </RightContainer>
             </DescContainer>
-        </>
+        </Container>
     );
 };
 

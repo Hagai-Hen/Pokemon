@@ -12,7 +12,6 @@ interface PokeGridProps {
 
 export const PokeGrid  = ({ selectedOption } : PokeGridProps) => {
     const { pokemons, loadMore } = useGetPokemons();
-    const [isClicked, setIsClicked] = useState<boolean>(false);
     const [selectedPokemon, setSelectedPokemon] = useState<Pokemon>();
     
 
@@ -30,12 +29,12 @@ export const PokeGrid  = ({ selectedOption } : PokeGridProps) => {
         {selectedPokemon ? <PokeDesc pokemon={selectedPokemon} setSelectedPokemon={setSelectedPokemon} /> :
         <GridContainer>
             {filteredPokemons.map((p) => (
-                <PokeCard key={p.id} pokemon={p} isClicked={isClicked} setIsClicked={setIsClicked} onCardClick={setSelectedPokemon}/>
+                <PokeCard key={p.id} pokemon={p} onCardClick={setSelectedPokemon}/>
             ))}
         </GridContainer> }
         
         <ButtonContainer>
-            {!selectedOption && !selectedPokemon && !isClicked && <Button backgroundColor='white' textColor='#373299' onClick={loadMore}> Load More... </Button>}
+            {!selectedOption && !selectedPokemon && <Button backgroundColor='white' textColor='#373299' onClick={loadMore}> Load More... </Button>}
         </ButtonContainer>
         </>
     );

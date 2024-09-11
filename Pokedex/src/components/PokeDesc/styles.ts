@@ -1,5 +1,12 @@
 import styled from "styled-components";
 
+export const Container = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    position: relative;
+`;
+
 export const DescContainer = styled.button`
     display: flex;
     position: relative;
@@ -22,12 +29,10 @@ export const IdContainer = styled.h4`
 `;
 
 export const TitleContainer = styled.h1`
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
+
     font-size: 22px;
     color: #373299;
+    margin: 0;
 `;
 
 export const IconContainer = styled.div`
@@ -43,6 +48,7 @@ export const LeftContainer = styled.div`
     width: 30%;
     display: flex;
     flex-direction: column;
+    flex: 1;
 `;
 export const RightContainer = styled.div`
     position: absolute;
@@ -78,6 +84,28 @@ export const DescSection = styled.div`
 `;
 
 export const ButtonContainer = styled.div`
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+`;
+
+export const ClearButtonWrapper = styled.div`
+    position: relative;
     margin-left: 100px;
     padding: 10px;
+    width: auto;
+    height: auto;
+    z-index: 10;
+`;
+
+export const HomePageButton = styled.button`
+    background: none;
+    border: none;
+    color: #373299;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
 `;

@@ -15,6 +15,11 @@ const useGetPokemons = (initialUrl: string = 'https://pokeapi.co/api/v2/pokemon?
     const [pokemons, setPokemons] = useState<Pokemon[]>([]);
     const [next, setNext] = useState<string | null>(initialUrl);
 
+    const capitalizeFirstLetter = (str: string): string => {
+        if (!str) return str;
+        return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
+    };
+
     const fetchPokemonDetails = useCallback(async (url: string): Promise<Pokemon> => {
         const response = await fetch(url);
         const data = await response.json();
@@ -27,9 +32,9 @@ const useGetPokemons = (initialUrl: string = 'https://pokeapi.co/api/v2/pokemon?
         stats['total'] = total;
 
         return {
-            name: data.name,
+            name: capitalizeFirstLetter(data.name),
             id: data.id,
-            types: data.types.map((t: any) => t.type.name),
+            types: data.types.map((t: any) => capitalizeFirstLetter(t.type.name)),
             picture: data.sprites.front_default,
             stats: stats
         };
