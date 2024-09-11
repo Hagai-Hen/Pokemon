@@ -3,6 +3,8 @@ import useGetPokemons from '../../hooks/useGetPokemons';
 import { ButtonContainer, GridContainer } from './styles';
 import Button from '../Button/Button';
 import { useState } from 'react';
+import { Pokemon } from '../../hooks/useGetPokemons';
+import PokeDesc from '../PokeDesc/PokeDesc';
 
 interface PokeGridProps {
     selectedOption: string,
@@ -11,6 +13,8 @@ interface PokeGridProps {
 export const PokeGrid  = ({ selectedOption } : PokeGridProps) => {
     const { pokemons, loadMore } = useGetPokemons();
     const [isClicked, setIsClicked] = useState<boolean>(false);
+    const [selectedPokemon, setSelectedPokemon] = useState<Pokemon>();
+    
 
     const filteredPokemons = pokemons.filter(p => {
         
@@ -23,15 +27,15 @@ export const PokeGrid  = ({ selectedOption } : PokeGridProps) => {
 
     return (
         <>
-        {!isClicked &&
+        {selectedPokemon ? <PokeDesc pokemon={selectedPokemon} setSelectedPokemon={setSelectedPokemon} /> :
         <GridContainer>
             {filteredPokemons.map((p) => (
-                <PokeCard key={p.id} pokemon={p} isClicked={isClicked} setIsClicked={setIsClicked}/>
+                <PokeCard key={p.id} pokemon={p} isClicked={isClicked} setIsClicked={setIsClicked} onCardClick={setSelectedPokemon}/>
             ))}
         </GridContainer> }
         
         <ButtonContainer>
-            {!selectedOption &&<Button backgroundColor='white' textColor='#373299' onClick={loadMore}> Load More... </Button>}
+            {!selectedOption && !selectedPokemon && !isClicked && <Button backgroundColor='white' textColor='#373299' onClick={loadMore}> Load More... </Button>}
         </ButtonContainer>
         </>
     );
