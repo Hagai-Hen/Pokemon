@@ -10,7 +10,6 @@ interface DropdownProps {
 
 export const DropDown: React.FC<DropdownProps> = ({ options, selectedOption, setSelectedOption }) => {
     const [isOpen, setIsOpen] = useState(false);
-    // const [selectedOption, setSelectedOption] = useState<string>('');
     const [recentSearches, setRecentSearches] = useState<string[]>(options);
     const containerRef = useRef<HTMLDivElement>(null);
 
