@@ -1,2 +1,1 @@
-export const homePageRoute = "/";
-export const favPageRoute = "/fav";
+export const PAGES = [{title: "Home", key: "Home", route: '/'}, {title: "Favorite", page: "Favorite", route: '/fav'}]
