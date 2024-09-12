@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 import { NavigatorButton } from "./styles";
-import { colors } from '../../colors';
+import { colors } from '../../resources/colors';
 
 interface NavButtonProps {
     isClicked?: boolean,

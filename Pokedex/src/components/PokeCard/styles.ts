@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors } from "../../colors";
+import { colors } from "../../resources/colors";
 
 export const CardContainer = styled.button`
     position: relative;

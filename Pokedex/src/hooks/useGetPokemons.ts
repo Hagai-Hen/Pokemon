@@ -1,19 +1,11 @@
 import { useEffect, useState, useCallback } from 'react';
+import { initialApiCall } from '../resources/urls';
+import { Pokemon } from '../resources/interfaces';
 
-export interface Pokemon {
-    name: string;
-    id: number;
-    types: string[];
-    picture: string;
-    stats: {
-        [key: string]: number;
-    };
-}
-
-const useGetPokemons = (initialUrl: string = 'https://pokeapi.co/api/v2/pokemon?limit=12') => {
+const useGetPokemons = (url: string = initialApiCall) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [pokemons, setPokemons] = useState<Pokemon[]>([]);
-    const [next, setNext] = useState<string | null>(initialUrl);
+    const [next, setNext] = useState<string | null>(url);
 
     const fetchPokemonDetails = useCallback(async (url: string): Promise<Pokemon> => {
         const response = await fetch(url);
@@ -69,10 +61,10 @@ const useGetPokemons = (initialUrl: string = 'https://pokeapi.co/api/v2/pokemon?
     }, [next, getPokemons]);
 
     useEffect(() => {
-        if (initialUrl) {
-            getPokemons(initialUrl);
+        if (url) {
+            getPokemons(url);
         }
-    }, [initialUrl, getPokemons]);
+    }, [url, getPokemons]);
 
     return { pokemons, loading, loadMore, next };
 }

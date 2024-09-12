@@ -1,0 +1,4 @@
+{
+    "page_title": {"home": "Home", "favorite": "Favorite"},
+    "page_data": {"home": {"search": "Search", "clear": "Clear", "recent_searches": "Recent Searches"}, "Favorite": {}}
+}

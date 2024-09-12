@@ -1,5 +1,5 @@
 import { CardContainer, IdContainer, TitleContainer } from './styles';
-import { Pokemon } from '../../hooks/useGetPokemons';
+import { Pokemon } from '../../resources/interfaces';
 
 interface PokeCardProps {
     pokemon: Pokemon;

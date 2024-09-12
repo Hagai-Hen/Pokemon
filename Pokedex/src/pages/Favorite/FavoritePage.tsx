@@ -1,9 +1,11 @@
+import data from "../../resources/data.json";
+
 interface FavPageProps {
   setActivePage: (page: string) => void,
 }
 
 function FavoritePage({ setActivePage } : FavPageProps) {
-  setActivePage("Favorite");
+  setActivePage(data.page_title.favorite);
 
   return (
     <>

@@ -2,7 +2,7 @@ import PokeCard from '../PokeCard/PokeCard';
 import useGetPokemons from '../../hooks/useGetPokemons';
 import { ButtonContainer, GridContainer } from './styles';
 import Button from '../Button/Button';
-import { colors } from '../../colors';
+import { colors } from '../../resources/colors';
 
 interface PokeGridProps {
     selectedOption: string,
