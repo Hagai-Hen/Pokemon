@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import { NavigatorButton } from "./styles";
 import { colors } from '../../colors';
 
-type NavButtonProps = {
+interface NavButtonProps {
     isClicked?: boolean,
     children: ReactNode,
     onClick: () => void,

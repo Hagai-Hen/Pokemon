@@ -2,6 +2,7 @@ import PokeCard from '../PokeCard/PokeCard';
 import useGetPokemons from '../../hooks/useGetPokemons';
 import { ButtonContainer, GridContainer } from './styles';
 import Button from '../Button/Button';
+import { colors } from '../../colors';
 
 interface PokeGridProps {
     selectedOption: string,
@@ -29,7 +30,7 @@ export const PokeGrid  = ({ selectedOption } : PokeGridProps) => {
         </GridContainer>
         
         <ButtonContainer>
-            {!selectedOption &&<Button backgroundColor='white' textColor='#373299' onClick={loadMore}> Load More... </Button>}
+            {!selectedOption &&<Button backgroundColor='white' textColor={colors.primary} onClick={loadMore}> Load More... </Button>}
         </ButtonContainer>
         </>
     );

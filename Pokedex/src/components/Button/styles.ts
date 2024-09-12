@@ -7,7 +7,7 @@ interface ButtonProps {
   }
 
 export const StyledButton = styled.button<ButtonProps>`
-    background-color: ${({ backgroundColor }) => backgroundColor || '#373299'};
+    background-color: ${({ backgroundColor }) => backgroundColor || colors.primary};
     color: ${({ textColor }) => textColor || 'white'};
     height: 37px;
     text-align: center;
