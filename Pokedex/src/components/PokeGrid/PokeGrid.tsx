@@ -26,7 +26,7 @@ export const PokeGrid  = ({ selectedOption } : PokeGridProps) => {
 
     return (
         <>
-        {selectedPokemon ? <PokeDesc pokemon={selectedPokemon} setSelectedPokemon={setSelectedPokemon} /> :
+        {selectedPokemon ? <PokeDesc pokemon={selectedPokemon} /> :
         <GridContainer>
             {filteredPokemons.map((p) => (
                 <PokeCard key={p.id} pokemon={p} onCardClick={setSelectedPokemon}/>

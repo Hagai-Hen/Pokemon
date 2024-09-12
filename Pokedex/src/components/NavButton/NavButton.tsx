@@ -8,10 +8,10 @@ type NavButtonProps = {
     onClick: () => void;
 }
 
-export const NavButton = ({ children, isClicked = false }: NavButtonProps) => {
+export const NavButton = ({ children, isClicked = false, onClick }: NavButtonProps) => {
     return (
         <>
-            {isClicked ? <NavigatorButton backgroundColor={colors.secondary}>{children}</NavigatorButton> : <NavigatorButton>{children}</NavigatorButton> }
+            {isClicked ? <NavigatorButton onClick={onClick} backgroundColor={colors.secondary}>{children}</NavigatorButton> : <NavigatorButton onClick={onClick}>{children}</NavigatorButton> }
         </>
     )
 }

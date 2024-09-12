@@ -8,6 +8,10 @@ export const CardContainer = styled.button`
     border: none;
     border-radius: 10px;
     margin: auto;
+    &:hover {
+        background-color: #f6f6f6;
+        cursor: pointer;
+    }
 `;
 
 export const IdContainer = styled.h4`

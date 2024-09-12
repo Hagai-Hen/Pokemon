@@ -12,9 +12,9 @@ export const NavigatorButton = styled.button<NavigatorButtonProps>`
     height: 67px;
     border: none;
     text-align: center;
-    cursor: pointer;
     transition: background-color 0.3s; /* Smooth transition for background color */
     &:hover {
         background-color: ${colors.secondary};
+        cursor: pointer;
     }
 `;

@@ -2,16 +2,20 @@ import { HomePageButton, ClearButtonWrapper ,ButtonContainer, DescContainer, Des
 import { Pokemon } from '../../hooks/useGetPokemons';
 import FavIcon from '../../assets/fav_icon.png';
 import Button from '../Button/Button';
+import { useNavigate } from 'react-router-dom';
 
 interface PokeDescProps {
-    pokemon: Pokemon;
-    setSelectedPokemon: (pokemon: any) => void;
+    pokemon: Pokemon | undefined;
 }
 
-export const PokeDesc  = ({ pokemon, setSelectedPokemon } : PokeDescProps) => {
+export const PokeDesc  = ({ pokemon } : PokeDescProps) => {
+    const navigate = useNavigate();
     const handleClick = () => { 
-        setSelectedPokemon(null);
+        navigate("/");
+    }
 
+    if (!pokemon) {
+        return <div>Loading...</div>;
     }
 
     return (

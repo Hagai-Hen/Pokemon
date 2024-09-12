@@ -1,14 +1,16 @@
 import { CardContainer, IdContainer, TitleContainer } from './styles';
 import { Pokemon } from '../../hooks/useGetPokemons';
+import { useNavigate } from 'react-router-dom';
 
 interface PokeCardProps {
     pokemon: Pokemon;
     onCardClick: (pokemon: Pokemon) => void;
 }
 
-export const PokeCard  = ({ pokemon, onCardClick } : PokeCardProps) => {
+export const PokeCard  = ({ pokemon } : PokeCardProps) => {
+    const navigate = useNavigate();
     const handleClick = () => {
-        onCardClick(pokemon);
+        navigate(`desc/${pokemon.name}`);
     }
     return (
         <>
