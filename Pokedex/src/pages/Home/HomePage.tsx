@@ -1,14 +1,14 @@
 import {DropDown} from '../../components/DropDown/DropDown';
 import { useState } from "react";
 import PokeGrid from "../../components/PokeGrid/PokeGrid";
-import data from "../../resources/data.json";
+import { HOME_PAGE_TITLE } from '../../resources/resources';
 
 interface HomePageProps {
   setActivePage: (page: string) => void,
 }
 
 function HomePage({ setActivePage } : HomePageProps) {
-  setActivePage(data.page_title.home);
+  setActivePage(HOME_PAGE_TITLE);
 
   const [recentSearches, setRecentSearches] = useState<string[]>(() => {
     const savedSearches = localStorage.getItem('recentSearches');
