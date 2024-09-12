@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { colors } from '../../colors';
 
 export const DropdownContainer = styled.div`
     position: relative;
@@ -52,7 +53,7 @@ export const DropdownItem = styled.div`
 export const ClearButton = styled.button`
     background: none;
     border: none;
-    color: #373299;
+    color: ${colors.primary};
     cursor: pointer;
     font-size: 14px;
     font-weight: bold;
@@ -79,9 +80,8 @@ export const DropdownHeader = styled.div`
     justify-content: space-between;
     padding: 10px;
     background-color: #ffffff;
-    color: #373299;
+    color: ${colors.primary};
     font-family: arial;
-    border-radius: 9px;
 `;
 
 export const SearchContainer = styled.div`

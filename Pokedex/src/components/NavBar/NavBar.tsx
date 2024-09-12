@@ -21,7 +21,7 @@ export const NavBar = ({ activePage } : NavBarProps) => {
         <NavigatorBar>
             <img src={logo} alt="logo"/>
             <ButtonsContainer>
-                {tabs.map((tab)=><NavButton  onClick={()=>onClickNavButton(tab.route)}   isClicked={activePage===tab.page}>{tab.title}</NavButton> )}
+                {tabs.map((tab)=><NavButton  onClick={() => onClickNavButton(tab.route)} isClicked={activePage===tab.page}>{tab.title}</NavButton> )}
             </ButtonsContainer>
         </NavigatorBar>
     )

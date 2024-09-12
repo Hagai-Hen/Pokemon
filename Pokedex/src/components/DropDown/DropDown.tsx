@@ -4,12 +4,11 @@ import { Button } from '../Button/Button.tsx';
 
 interface DropdownProps {
     options: string[];
-    selectedOption: string,
-    setSelectedOption: (opt: string) => void,
 }
 
-export const DropDown: React.FC<DropdownProps> = ({ options, selectedOption, setSelectedOption }) => {
+export const DropDown: React.FC<DropdownProps> = ({ options }) => {
     const [isOpen, setIsOpen] = useState(false);
+    const [selectedOption, setSelectedOption] = useState<string>('');
     const [recentSearches, setRecentSearches] = useState<string[]>(options);
     const containerRef = useRef<HTMLDivElement>(null);
 

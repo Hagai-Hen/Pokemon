@@ -1,7 +1,8 @@
 import styled from "styled-components";
+import { colors } from "../../colors";
 
 export const NavigatorBar = styled.div`
-    background-color: #373299;
+    background-color: ${colors.primary};
     width: 100%;
     height: 67px;
     flex-direction: row;
@@ -9,16 +10,15 @@ export const NavigatorBar = styled.div`
     flex-direction: row;
     padding: 0 100px;
     justify-content: space-between;
-    box-sizing: border-box; /* Ensure padding does not affect total width */
-
-    /* Media Queries for responsiveness */
+    box-sizing: border-box;
+    
     @media (max-width: 768px) {
-        padding: 0 20px; /* Adjust padding for small screens */
+        padding: 0 20px;
     }
 
     @media (max-width: 480px) {
-        padding: 0 10px; /* Further adjust padding for very small screens */
-        justify-content: center; /* Center content */
+        padding: 0 10px;
+        justify-content: center;
         background-color: #ffffff;
     }
 
@@ -28,8 +28,7 @@ export const ButtonsContainer = styled.div`
     display: flex;
     justify-content: flex-end;
 
-    /* Media Queries for responsiveness */
     @media (max-width: 480px) {
-        display: none; /* Hide buttons on very small screens */
+        display: none;
     }
 `;
