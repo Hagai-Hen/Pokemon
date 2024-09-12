@@ -81,6 +81,7 @@ export const DropdownHeader = styled.div`
     background-color: #ffffff;
     color: #373299;
     font-family: arial;
+    border-radius: 9px;
 `;
 
 export const SearchContainer = styled.div`

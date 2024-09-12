@@ -29,7 +29,6 @@ export const IdContainer = styled.h4`
 `;
 
 export const TitleContainer = styled.h1`
-
     font-size: 22px;
     color: #373299;
     margin: 0;

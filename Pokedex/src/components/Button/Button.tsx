@@ -1,7 +1,7 @@
 import { ReactNode } from "react";
 import { StyledButton } from "./styles";
 
-type StyledButtonProps = {
+interface StyledButtonProps {
     backgroundColor?: string;
     textColor?: string;
     children: ReactNode;
