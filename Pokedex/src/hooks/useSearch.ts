@@ -17,8 +17,8 @@ const useSearch = (query: string) => {
                     if (data.error) {
                         throw new Error(data.error);
                     }
-                    const filteredPokemons = data.results.filter((p: any) => {        
-                        return p.id === Number(query) || p.name.toLowerCase().includes(query.toLowerCase());
+                    const filteredPokemons = data.results.filter((p: any, i: number) => {        
+                        return (i+1) === Number(query) || p.name.toLowerCase().includes(query.toLowerCase());
                     });
 
                     const pokemonDetailPromisses = filteredPokemons.map((item: any) => fetchPokemonDetails(item.url));
