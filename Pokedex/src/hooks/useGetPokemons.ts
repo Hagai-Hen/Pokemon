@@ -1,31 +1,12 @@
 import { useEffect, useState, useCallback } from 'react';
 import { initialApiCall } from '../resources/urls';
 import { Pokemon } from '../resources/interfaces';
+import { fetchPokemonDetails } from './utils';
 
 const useGetPokemons = (url: string = initialApiCall) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [pokemons, setPokemons] = useState<Pokemon[]>([]);
     const [next, setNext] = useState<string | null>(url);
-
-    const fetchPokemonDetails = useCallback(async (url: string): Promise<Pokemon> => {
-        const response = await fetch(url);
-        const data = await response.json();
-
-        const stats = data.stats.reduce((acc: { [key: string]: number }, stat: any) => {
-            acc[stat.stat.name] = stat.base_stat;
-            return acc;
-        }, {});
-        const total = data.stats.reduce((sum: number, stat: any) => sum + stat.base_stat, 0);
-        stats['total'] = total;
-
-        return {
-            name: data.name,
-            id: data.id,
-            types: data.types.map((t: any) => t.type.name),
-            picture: data.sprites.front_default,
-            stats: stats
-        };
-    }, []);
 
     const getPokemons = useCallback(async (url: string) => {
         try {

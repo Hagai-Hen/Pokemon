@@ -3,34 +3,27 @@ import useGetPokemons from '../../hooks/useGetPokemons';
 import { ButtonContainer, GridContainer } from './styles';
 import Button from '../Button/Button';
 import { colors } from '../../resources/colors';
+import useSearch from '../../hooks/useSearch';
 
 interface PokeGridProps {
     selectedOption: string,
 }
 
 export const PokeGrid  = ({ selectedOption } : PokeGridProps) => {
-    const { pokemons, loadMore } = useGetPokemons(); // Use the hook to manage Pokémon data
-
-
-    const filteredPokemons = pokemons.filter(p => {
-        
-        if (selectedOption.trim() === '') {
-            return true;
-        }
-    
-        return p.id === Number(selectedOption) || p.name.toLowerCase().includes(selectedOption.toLowerCase());
-    });
+    const { pokemons, loadMore } = useGetPokemons();
+    const { searchedPokemons } = useSearch(selectedOption);
 
     return (
         <>
         <GridContainer>
-            {filteredPokemons.map((p) => (
-                <PokeCard key={p.id} pokemon={p} />
-            ))}
+            {selectedOption ? searchedPokemons.map((p) => (
+                <PokeCard key={p.id} pokemon={p} />))
+            : pokemons.map((p) => (
+                <PokeCard key={p.id} pokemon={p} />))}
         </GridContainer>
         
         <ButtonContainer>
-            {!selectedOption &&<Button backgroundColor='white' textColor={colors.primary} onClick={loadMore}> Load More... </Button>}
+            {!selectedOption && <Button backgroundColor='white' textColor={colors.primary} onClick={loadMore}> Load More... </Button>}
         </ButtonContainer>
         </>
     );
