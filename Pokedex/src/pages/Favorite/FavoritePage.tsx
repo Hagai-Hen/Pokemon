@@ -1,3 +1,4 @@
+import PokeGrid from "../../components/PokeGrid/PokeGrid";
 import { FAV_PAGE_TITLE } from "../../resources/resources";
 interface FavPageProps {
   setActivePage: (page: string) => void,
@@ -9,7 +10,7 @@ function FavoritePage({ setActivePage } : FavPageProps) {
 
   return (
     <>
-      <h3>Favorite Page</h3>
+      <PokeGrid isFav={true} />
     </>
   )
 }

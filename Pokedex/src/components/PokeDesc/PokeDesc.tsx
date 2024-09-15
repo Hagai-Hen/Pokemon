@@ -5,20 +5,43 @@ import Button from '../Button/Button';
 import { useNavigate } from 'react-router-dom';
 import RightArrow from '../../assets/right_arrow.png';
 import { colors, PokemonTypeColor } from '../../resources/colors';
-
+import { useState, useEffect } from 'react';
 interface PokeDescProps {
     pokemon: Pokemon | undefined;
 }
 
+const getFavorites = () => {
+    const savedSearches = localStorage.getItem('favorites');
+    return savedSearches ? JSON.parse(savedSearches) : [];
+  };
+
 export const PokeDesc  = ({ pokemon } : PokeDescProps) => {
+    const [favorites, setFavorites] = useState<Pokemon[]>(getFavorites);
     const navigate = useNavigate();
     const handleClick = () => { 
         navigate("/");
     }
 
+    useEffect(() => {
+        // Store options in local storage whenever they change
+        localStorage.setItem('favorites', JSON.stringify(favorites));
+    }, [favorites]);
+
     if (!pokemon) {
         return <div>Loading...</div>;
     }
+    
+    const handleFavClick = (pokemon: Pokemon) => {
+        setFavorites((prevFavorites) => {
+            const isFavorite = prevFavorites.some(fav => fav.id === pokemon.id);
+        
+            const updatedFavorites = isFavorite
+                ? prevFavorites.filter(fav => fav.id !== pokemon.id) // Remove if already exists
+                : [...prevFavorites, pokemon]; // Add if not exists
+        
+            return updatedFavorites;
+        });
+    };
 
     return (
         <Container>
@@ -28,7 +51,7 @@ export const PokeDesc  = ({ pokemon } : PokeDescProps) => {
             </ButtonWrapper>
             <DescContainer>
                 <IdContainer>#{pokemon.id}</IdContainer>
-                <IconContainer><img src={FavIcon} /></IconContainer>
+                <IconContainer><img src={FavIcon} onClick={() => handleFavClick(pokemon)}/></IconContainer>
                 <LeftContainer>
                     <img src={pokemon.picture} />
                     <TitleContainer>{pokemon.name}</TitleContainer>
