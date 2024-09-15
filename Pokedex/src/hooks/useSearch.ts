@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getAllPokemonsCall } from '../resources/urls';
 import { Pokemon } from '../resources/interfaces';
-import { fetchPokemonDetails } from './utils';
+import { fetchPokemonDetails } from '../resources/utils';
 
 const useSearch = (query: string) => {
     const [loading, setLoading] = useState<boolean>(false);

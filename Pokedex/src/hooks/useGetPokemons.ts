@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { initialApiCall } from '../resources/urls';
 import { Pokemon } from '../resources/interfaces';
-import { fetchPokemonDetails } from './utils';
+import { fetchPokemonDetails } from '../resources/utils';
 
 const useGetPokemons = (url: string = initialApiCall) => {
     const [loading, setLoading] = useState<boolean>(false);
