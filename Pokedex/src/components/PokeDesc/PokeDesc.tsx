@@ -1,10 +1,10 @@
 import { HomePageButton, ButtonWrapper ,ButtonContainer, DescContainer, DescSection, IconContainer, IdContainer, LeftContainer, RightContainer, Separator, StatsContainer, StatsSection, TitleContainer, Container, } from './styles';
-import { Pokemon } from '../../hooks/useGetPokemons';
+import { Pokemon } from '../../resources/interfaces';
 import FavIcon from '../../assets/fav_icon.png';
 import Button from '../Button/Button';
 import { useNavigate } from 'react-router-dom';
 import RightArrow from '../../assets/right_arrow.png';
-import { colors, PokemonTypeColor } from '../../colors';
+import { colors, PokemonTypeColor } from '../../resources/colors';
 
 interface PokeDescProps {
     pokemon: Pokemon | undefined;

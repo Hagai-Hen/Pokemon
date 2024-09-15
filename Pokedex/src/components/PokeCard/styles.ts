@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { colors } from "../../resources/colors";
 
 export const CardContainer = styled.button`
     position: relative;
@@ -18,7 +19,7 @@ export const IdContainer = styled.h4`
     position: absolute;
     top: 0;
     left: 20px;
-    color: #373299;
+    color: ${colors.primary};
 `;
 
 export const TitleContainer = styled.h1`
@@ -27,5 +28,5 @@ export const TitleContainer = styled.h1`
     left: 50%;
     transform: translateX(-50%);
     font-size: 22px;
-    color: #373299;
+    color: ${colors.primary};
 `;

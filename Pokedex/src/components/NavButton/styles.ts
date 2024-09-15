@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors } from "../../colors";
+import { colors } from "../../resources/colors";
 
 interface NavigatorButtonProps {
     backgroundColor?: string;
@@ -12,9 +12,9 @@ export const NavigatorButton = styled.button<NavigatorButtonProps>`
     height: 67px;
     border: none;
     text-align: center;
-    transition: background-color 0.3s; /* Smooth transition for background color */
+    cursor: pointer;
+    transition: background-color 0.3s;
     &:hover {
         background-color: ${colors.secondary};
-        cursor: pointer;
     }
 `;

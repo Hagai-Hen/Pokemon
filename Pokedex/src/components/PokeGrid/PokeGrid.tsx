@@ -1,43 +1,39 @@
-import PokeCard from '../PokeCard/PokeCard';
-import useGetPokemons from '../../hooks/useGetPokemons';
-import { ButtonContainer, GridContainer } from './styles';
-import Button from '../Button/Button';
-import { useState } from 'react';
-import { Pokemon } from '../../hooks/useGetPokemons';
-import PokeDesc from '../PokeDesc/PokeDesc';
+import PokeCard from "../PokeCard/PokeCard";
+import useGetPokemons from "../../hooks/useGetPokemons";
+import { ButtonContainer, GridContainer } from "./styles";
+import Button from "../Button/Button";
+import { colors } from "../../resources/colors";
+import useSearch from "../../hooks/useSearch";
 
 interface PokeGridProps {
-    selectedOption: string,
+  selectedOption: string;
 }
 
-export const PokeGrid  = ({ selectedOption } : PokeGridProps) => {
-    const { pokemons, loadMore } = useGetPokemons();
-    const [selectedPokemon, setSelectedPokemon] = useState<Pokemon>();
-    
+export const PokeGrid = ({ selectedOption }: PokeGridProps) => {
+  const { pokemons, loadMore } = useGetPokemons();
+  const { searchedPokemons } = useSearch(selectedOption);
 
-    const filteredPokemons = pokemons.filter(p => {
-        
-        if (selectedOption.trim() === '') {
-            return true;
-        }
-    
-        return p.id === Number(selectedOption) || p.name.toLowerCase().includes(selectedOption.toLowerCase());
-    });
+  return (
+    <>
+      <GridContainer>
+        {selectedOption
+          ? searchedPokemons.map((p) => <PokeCard key={p.id} pokemon={p} />)
+          : pokemons.map((p) => <PokeCard key={p.id} pokemon={p} />)}
+      </GridContainer>
 
-    return (
-        <>
-        {selectedPokemon ? <PokeDesc pokemon={selectedPokemon} /> :
-        <GridContainer>
-            {filteredPokemons.map((p) => (
-                <PokeCard key={p.id} pokemon={p} onCardClick={setSelectedPokemon}/>
-            ))}
-        </GridContainer> }
-        
-        <ButtonContainer>
-            {!selectedOption && !selectedPokemon && <Button backgroundColor='white' textColor='#373299' onClick={loadMore}> Load More... </Button>}
-        </ButtonContainer>
-        </>
-    );
+      <ButtonContainer>
+        {!selectedOption && (
+          <Button
+            backgroundColor="white"
+            textColor={colors.primary}
+            onClick={loadMore}
+          >
+            Load More...
+          </Button>
+        )}
+      </ButtonContainer>
+    </>
+  );
 };
 
 export default PokeGrid;

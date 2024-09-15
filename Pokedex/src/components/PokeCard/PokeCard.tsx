@@ -1,5 +1,5 @@
 import { CardContainer, IdContainer, TitleContainer } from './styles';
-import { Pokemon } from '../../hooks/useGetPokemons';
+import { Pokemon } from '../../resources/interfaces';
 import { useNavigate } from 'react-router-dom';
 
 interface PokeCardProps {
