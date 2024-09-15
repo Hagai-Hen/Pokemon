@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { colors } from "../../colors";
+import { colors } from "../../resources/colors";
 
 export const NavigatorBar = styled.div`
     background-color: ${colors.primary};

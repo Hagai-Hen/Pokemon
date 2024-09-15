@@ -1,16 +1,22 @@
 import { ReactNode } from "react";
 import { NavigatorButton } from "./styles";
-import { colors } from '../../colors';
+import { colors } from '../../resources/colors';
+import { useMemo } from "react";
 
-type NavButtonProps = {
+interface NavButtonProps {
     isClicked?: boolean,
-    children: ReactNode
+    children: ReactNode,
+    onClick: () => void,
 }
 
-export const NavButton = ({ children, isClicked = false }: NavButtonProps) => {
+export const NavButton = ({ children, isClicked = false, onClick }: NavButtonProps) => {
+
+    const backgroundColor = useMemo(() => {
+        return isClicked ? colors.secondary : '';
+    }, [isClicked]);
     return (
         <>
-            {isClicked ? <NavigatorButton backgroundColor={colors.secondary}>{children}</NavigatorButton> : <NavigatorButton>{children}</NavigatorButton> }
+            {<NavigatorButton backgroundColor={backgroundColor} onClick={onClick}>{children}</NavigatorButton>}
         </>
     )
 }
