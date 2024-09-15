@@ -5,13 +5,27 @@ const capitalizeFirstLetter = (str: string): string => {
     return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 };
 
+interface FlavorTextEntry {
+    flavor_text: string;
+    language: {
+        name: string;
+    };
+}
+
 export const fetchPokemonDetails = async (url: string): Promise<Pokemon> => {
     const response = await fetch(url);
     const data = await response.json();
 
+    
     const speciesResponse = await fetch(`${data.species.url}`);
     const speciesData = await speciesResponse.json();
+    const flavorTextEntries: FlavorTextEntry[] = speciesData.flavor_text_entries;
 
+    const englishFlavorTextEntry = flavorTextEntries.find(entry => entry.language.name === 'en');
+
+    const description = englishFlavorTextEntry ? englishFlavorTextEntry.flavor_text : 'Description not available';
+
+    
     const stats = data.stats.reduce((acc: { [key: string]: number }, stat: any) => {
         acc[stat.stat.name] = stat.base_stat;
         return acc;
@@ -25,7 +39,7 @@ export const fetchPokemonDetails = async (url: string): Promise<Pokemon> => {
         types: data.types.map((t: any) => capitalizeFirstLetter(t.type.name)),
         picture: data.sprites.front_default,
         stats: stats,
-        description: speciesData.flavor_text_entries.find(entry => entry.language.name === 'en').flavor_text,
+        description: description,
 
     };
 };
