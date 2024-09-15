@@ -13,6 +13,6 @@ export const StyledButton = styled.button<ButtonProps>`
     text-align: center;
     cursor: pointer;
     border-radius: 9px;
-    border: 1px solid ${colors.primary};
+    border: none;
     padding: 0 20px;
 `;

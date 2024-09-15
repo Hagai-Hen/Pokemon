@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import { NavBar } from "./components/NavBar/NavBar";
 import { useState } from "react";
 import FavoritePage from "./pages/Favorite/FavoritePage";
-import DescriptionPage from "./pages/Description/Description Page";
+import DescriptionPage from "./pages/Description/DescriptionPage";
 
 function App() {
   const [activePage, setActivePage] = useState<string>('');

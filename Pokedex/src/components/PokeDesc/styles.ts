@@ -2,10 +2,11 @@ import styled from "styled-components";
 
 export const Container = styled.div`
     display: flex;
+    position: relative;
     flex-direction: column;
     flex: 1;
-    position: relative;
 `;
+
 
 export const DescContainer = styled.button`
     display: flex;
@@ -19,6 +20,17 @@ export const DescContainer = styled.button`
     background: #F7F7F9;
     box-shadow: 2px 2px 4px 0px #00000026;
     color: #020166;
+    margin: 0 auto;
+
+    @media (max-width: 950px) {
+        max-width: 650px;
+    }
+
+    @media (max-width: 700px) {
+        flex-direction: column;
+        width: 90%;
+        height: 700px;
+    }
 `;
 
 export const IdContainer = styled.h4`
@@ -48,15 +60,34 @@ export const LeftContainer = styled.div`
     display: flex;
     flex-direction: column;
     flex: 1;
+    max-width: 30%;
+
+    @media (max-width: 700px) {
+        max-width: 90%;
+    }
 `;
 export const RightContainer = styled.div`
-    position: absolute;
     margin: auto;
-    padding: 35%;
     width: 60%;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
+    max-width: 60%;
+
+    @media (max-width: 1200px) {
+        max-width: 800px;
+    }
+
+    @media (max-width: 950px) {
+        max-width: 650px;
+    }
+
+    @media (max-width: 700px) {
+        max-width: 90%;
+        width: 90%;
+        height: 90%;
+    }
+
 `;
 
 export const Separator = styled.div`
@@ -64,6 +95,32 @@ export const Separator = styled.div`
     background-color: #D7D7D7;
     height: 300px;
     margin-left: 30%;
+
+    @media (max-width: 700px) {
+        width: 100%;
+        height: 1px;
+        margin-left: 0;
+        margin-top: 300px;
+    }
+    @media (max-width: 700px) {
+        margin-top: 300px;
+    }
+
+    @media (max-width: 600px) {
+        margin-top: 250px;
+    }
+
+    @media (max-width: 500px) {
+        margin-top: 230px;
+    }
+    
+    @media (max-width: 400px) {
+        margin-top: 200px;
+    }
+    
+    @media (max-width: 300px) {
+        margin-top: 170px;
+    }
 `;
 
 
@@ -72,14 +129,27 @@ export const StatsContainer = styled.div`
     width: 100%;
     color: #020166;
     line-height: 0.5;
+    
+    @media (max-width: 700px) {
+        flex-direction: column;
+    }
 `;
 
 export const StatsSection = styled.div`
     width: 50%;
+
+    @media (max-width: 700px) {
+        flex-direction: column;
+        width: 90%
+    }
 `;
 
 export const DescSection = styled.div`
     width: 70%;
+    @media (max-width: 700px) {
+        flex-direction: column;
+        width: 90%
+    }
 `;
 
 export const ButtonContainer = styled.div`
@@ -91,13 +161,13 @@ export const ButtonContainer = styled.div`
     margin-bottom: 20px;
 `;
 
-export const ClearButtonWrapper = styled.div`
+export const ButtonWrapper = styled.div`
     position: relative;
+    display: flex;
     margin-left: 100px;
     padding: 10px;
-    width: auto;
-    height: auto;
-    z-index: 10;
+    cursor: pointer;
+    align-items: center;
 `;
 
 export const HomePageButton = styled.button`
@@ -106,5 +176,4 @@ export const HomePageButton = styled.button`
     color: #373299;
     cursor: pointer;
     font-size: 14px;
-    font-weight: bold;
 `;

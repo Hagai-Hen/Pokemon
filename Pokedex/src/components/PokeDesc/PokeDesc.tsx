@@ -1,8 +1,10 @@
-import { HomePageButton, ClearButtonWrapper ,ButtonContainer, DescContainer, DescSection, IconContainer, IdContainer, LeftContainer, RightContainer, Separator, StatsContainer, StatsSection, TitleContainer, Container, } from './styles';
+import { HomePageButton, ButtonWrapper ,ButtonContainer, DescContainer, DescSection, IconContainer, IdContainer, LeftContainer, RightContainer, Separator, StatsContainer, StatsSection, TitleContainer, Container, } from './styles';
 import { Pokemon } from '../../hooks/useGetPokemons';
 import FavIcon from '../../assets/fav_icon.png';
 import Button from '../Button/Button';
 import { useNavigate } from 'react-router-dom';
+import RightArrow from '../../assets/right_arrow.png';
+import { colors, PokemonTypeColor } from '../../colors';
 
 interface PokeDescProps {
     pokemon: Pokemon | undefined;
@@ -20,9 +22,10 @@ export const PokeDesc  = ({ pokemon } : PokeDescProps) => {
 
     return (
         <Container>
-            <ClearButtonWrapper>
+            <ButtonWrapper>
+                <img src={RightArrow} onClick={handleClick}/>
                 <HomePageButton onClick={handleClick}>Home Page</HomePageButton>
-            </ClearButtonWrapper>
+            </ButtonWrapper>
             <DescContainer>
                 <IdContainer>#{pokemon.id}</IdContainer>
                 <IconContainer><img src={FavIcon} /></IconContainer>
@@ -30,14 +33,14 @@ export const PokeDesc  = ({ pokemon } : PokeDescProps) => {
                     <img src={pokemon.picture} />
                     <TitleContainer>{pokemon.name}</TitleContainer>
                     <ButtonContainer>
-                        {pokemon.types.map(type => (<Button>{type}</Button>))}
+                        {pokemon.types.map(type => (<Button backgroundColor={PokemonTypeColor[type] || colors.primary}>{type}</Button>))}
                     </ButtonContainer>
                 </LeftContainer>
                 <Separator />
                 <RightContainer>
                     <h2>Description</h2>
                         <DescSection>
-                        <p>A strange seed was planted on its back at birth. The plant sprouts and grows with this POKéMON.</p>
+                        <p>{pokemon.description}</p>
                         </DescSection>
                     <h2>Stats</h2>
                     <StatsContainer>

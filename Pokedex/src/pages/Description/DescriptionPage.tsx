@@ -7,12 +7,12 @@ interface DescriptionPageProps {
 }
 
 function DescriptionPage({ setActivePage }: DescriptionPageProps) {
+  setActivePage("Description");
   const { name } = useParams<{ name: string }>();
   const { pokemons } = useGetPokemons();
   const pokemon = pokemons.find(
     (pokemon) => pokemon.name.toLowerCase() === name?.toLowerCase()
   );
-  console.log(pokemon);
   return (
     <>
       <PokeDesc pokemon={pokemon} />

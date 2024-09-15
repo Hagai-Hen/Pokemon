@@ -1,5 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 
+const speciesApiCall = `https://pokeapi.co/api/v2/pokemon-species/`
+
 export interface Pokemon {
     name: string;
     id: number;
@@ -8,6 +10,7 @@ export interface Pokemon {
     stats: {
         [key: string]: number;
     };
+    description: string;
 }
 
 const useGetPokemons = (initialUrl: string = 'https://pokeapi.co/api/v2/pokemon?limit=12') => {
@@ -24,6 +27,9 @@ const useGetPokemons = (initialUrl: string = 'https://pokeapi.co/api/v2/pokemon?
         const response = await fetch(url);
         const data = await response.json();
 
+        const speciesResponse = await fetch(`${speciesApiCall}${data.id}`);
+        const speciesData = await speciesResponse.json();
+
         const stats = data.stats.reduce((acc: { [key: string]: number }, stat: any) => {
             acc[stat.stat.name] = stat.base_stat;
             return acc;
@@ -36,7 +42,8 @@ const useGetPokemons = (initialUrl: string = 'https://pokeapi.co/api/v2/pokemon?
             id: data.id,
             types: data.types.map((t: any) => capitalizeFirstLetter(t.type.name)),
             picture: data.sprites.front_default,
-            stats: stats
+            stats: stats,
+            description: speciesData.flavor_text_entries[0].flavor_text,
         };
     }, []);
 
@@ -52,7 +59,6 @@ const useGetPokemons = (initialUrl: string = 'https://pokeapi.co/api/v2/pokemon?
 
             const pokemonDetailsPromises = data.results.map((item: any) => fetchPokemonDetails(item.url));
             const pokemonList = await Promise.all(pokemonDetailsPromises);
-
             setNext(data.next || null);
 
             setPokemons(prevPokemons => {
