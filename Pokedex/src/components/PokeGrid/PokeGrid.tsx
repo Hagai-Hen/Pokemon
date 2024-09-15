@@ -27,6 +27,7 @@ export const PokeGrid = ({ selectedOption }: PokeGridProps) => {
             backgroundColor="white"
             textColor={colors.primary}
             onClick={loadMore}
+            border={true}
           >
             Load More...
           </Button>

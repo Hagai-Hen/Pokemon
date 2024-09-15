@@ -3,7 +3,7 @@ import { getAllPokemonsCall } from '../resources/urls';
 import { Pokemon } from '../resources/interfaces';
 import { fetchPokemonDetails } from '../resources/utils';
 
-const useSearch = (query: string) => {
+const useSearch = (query: string | undefined) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [searchedPokemons, setPokemons] = useState<Pokemon[]>([]);
 

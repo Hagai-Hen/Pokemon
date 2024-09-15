@@ -1,6 +1,4 @@
 import { Pokemon } from "./interfaces";
-import { speciesApiCall } from "./urls";
-
 
 const capitalizeFirstLetter = (str: string): string => {
     if (!str) return str;
@@ -27,6 +25,7 @@ export const fetchPokemonDetails = async (url: string): Promise<Pokemon> => {
         types: data.types.map((t: any) => capitalizeFirstLetter(t.type.name)),
         picture: data.sprites.front_default,
         stats: stats,
-        description: speciesData.flavor_text_entries[0].flavor_text,
+        description: speciesData.flavor_text_entries.find(entry => entry.language.name === 'en').flavor_text,
+
     };
 };

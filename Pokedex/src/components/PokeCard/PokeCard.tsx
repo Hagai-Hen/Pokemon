@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 
 interface PokeCardProps {
     pokemon: Pokemon;
-    onCardClick: (pokemon: Pokemon) => void;
 }
 
 export const PokeCard  = ({ pokemon } : PokeCardProps) => {
