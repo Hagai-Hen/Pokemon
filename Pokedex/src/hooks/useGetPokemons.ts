@@ -3,6 +3,10 @@ import { initialApiCall } from '../resources/urls';
 import { Pokemon } from '../resources/interfaces';
 import { fetchPokemonDetails } from '../resources/utils';
 
+interface PokemonApiCall {
+    url: string;
+}
+
 const useGetPokemons = (url: string = initialApiCall) => {
     const [loading, setLoading] = useState<boolean>(false);
     const [pokemons, setPokemons] = useState<Pokemon[]>([]);
@@ -18,7 +22,7 @@ const useGetPokemons = (url: string = initialApiCall) => {
                 throw new Error(data.error);
             }
 
-            const pokemonDetailsPromises = data.results.map((item: any) => fetchPokemonDetails(item.url));
+            const pokemonDetailsPromises = data.results.map((item: PokemonApiCall) => fetchPokemonDetails(item.url));
             const pokemonList = await Promise.all(pokemonDetailsPromises);
             setNext(data.next || null);
 

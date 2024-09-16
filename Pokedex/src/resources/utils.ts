@@ -12,6 +12,13 @@ interface FlavorTextEntry {
     };
 }
 
+interface Stat {
+    stat: {
+        name: string;
+    };
+    base_stat: number;
+}
+
 export const fetchPokemonDetails = async (url: string): Promise<Pokemon> => {
     const response = await fetch(url);
     const data = await response.json();
@@ -26,12 +33,12 @@ export const fetchPokemonDetails = async (url: string): Promise<Pokemon> => {
     const description = englishFlavorTextEntry ? englishFlavorTextEntry.flavor_text : 'Description not available';
 
     
-    const stats = data.stats.reduce((acc: { [key: string]: number }, stat: any) => {
+    const stats = data.stats.reduce((acc: { [key: string]: number }, stat: Stat) => {
         acc[stat.stat.name] = stat.base_stat;
         return acc;
     }, {});
 
-    const total = data.stats.reduce((sum: number, stat: any) => sum + stat.base_stat, 0);
+    const total = data.stats.reduce((sum: number, stat: Stat) => sum + stat.base_stat, 0);
     stats['total'] = total;
 
     return {
