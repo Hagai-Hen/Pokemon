@@ -5,6 +5,8 @@ import { useState } from "react";
 import FavoritePage from "./pages/Favorite/FavoritePage";
 import DescriptionPage from "./pages/Description/DescriptionPage";
 import { DESC_PAGE_ROUTE, FAV_PAGE_ROUTE, HOME_PAGE_ROUTE } from "./resources/routes";
+import './resources/global.css';
+
 
 function App() {
   const [activePage, setActivePage] = useState<string>('');

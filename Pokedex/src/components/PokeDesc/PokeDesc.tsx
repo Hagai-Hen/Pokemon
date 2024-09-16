@@ -1,6 +1,8 @@
 import { HomePageButton, ButtonWrapper ,ButtonContainer, DescContainer, DescSection, IconContainer, IdContainer, LeftContainer, RightContainer, Separator, StatsContainer, StatsSection, TitleContainer, Container, } from './styles';
 import { Pokemon } from '../../resources/interfaces';
 import FavIcon from '../../assets/fav_icon.png';
+import FavIconPressed from '../../assets/fav_icon_pressed.png';
+import FavIconHover from '../../assets/fav_icon_hover.png';
 import Button from '../Button/Button';
 import { useNavigate } from 'react-router-dom';
 import RightArrow from '../../assets/right_arrow.png';
@@ -8,6 +10,7 @@ import { colors, PokemonTypeColor } from '../../resources/colors';
 import { useState, useEffect } from 'react';
 import { FAV_LOCAL_STORAGE } from '../../resources/resources';
 import { HOME_PAGE_ROUTE } from '../../resources/routes';
+
 interface PokeDescProps {
     pokemon: Pokemon | undefined;
 }
@@ -19,10 +22,14 @@ const getFavorites = () => {
 
 export const PokeDesc  = ({ pokemon } : PokeDescProps) => {
     const [favorites, setFavorites] = useState<Pokemon[]>(getFavorites);
+    const [isHovered, setIsHovered] = useState(false);
+
     const navigate = useNavigate();
     const handleClick = () => { 
         navigate(HOME_PAGE_ROUTE);
     }
+
+    const isFavorite = favorites.some(fav => fav.id === pokemon?.id);
 
     useEffect(() => {
         // Store options in local storage whenever they change
@@ -34,9 +41,7 @@ export const PokeDesc  = ({ pokemon } : PokeDescProps) => {
     }
     
     const handleFavClick = (pokemon: Pokemon) => {
-        setFavorites((prevFavorites) => {
-            const isFavorite = prevFavorites.some(fav => fav.id === pokemon.id);
-        
+        setFavorites((prevFavorites) => {        
             const updatedFavorites = isFavorite
                 ? prevFavorites.filter(fav => fav.id !== pokemon.id) // Remove if already exists
                 : [...prevFavorites, pokemon]; // Add if not exists
@@ -53,7 +58,13 @@ export const PokeDesc  = ({ pokemon } : PokeDescProps) => {
             </ButtonWrapper>
             <DescContainer>
                 <IdContainer>#{pokemon.id}</IdContainer>
-                <IconContainer><img src={FavIcon} onClick={() => handleFavClick(pokemon)}/></IconContainer>
+                <IconContainer>
+                    <img 
+                    src={isHovered ? FavIconHover : (isFavorite ? FavIconPressed : FavIcon)} 
+                    onClick={() => handleFavClick(pokemon)}
+                    onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
+                    />
+                </IconContainer>
                 <LeftContainer>
                     <img src={pokemon.picture} />
                     <TitleContainer>{pokemon.name}</TitleContainer>
