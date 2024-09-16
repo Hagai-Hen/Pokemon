@@ -1,14 +1,14 @@
 import {DropDown} from '../../components/DropDown/DropDown';
 import { useEffect, useState } from "react";
 import PokeGrid from "../../components/PokeGrid/PokeGrid";
-import { HOME_PAGE_TITLE } from '../../resources/resources';
+import { HOME_PAGE_TITLE, RECENT_SEARCHES_LOCAL_STORAGE } from '../../resources/resources';
 
 interface HomePageProps {
   setActivePage: (page: string) => void,
 }
 
 const getInitialRecentSearches = () => {
-  const savedSearches = localStorage.getItem('recentSearches');
+  const savedSearches = localStorage.getItem(RECENT_SEARCHES_LOCAL_STORAGE);
   return savedSearches ? JSON.parse(savedSearches) : [];
 };
 

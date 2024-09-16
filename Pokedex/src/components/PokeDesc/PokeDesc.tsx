@@ -6,12 +6,14 @@ import { useNavigate } from 'react-router-dom';
 import RightArrow from '../../assets/right_arrow.png';
 import { colors, PokemonTypeColor } from '../../resources/colors';
 import { useState, useEffect } from 'react';
+import { FAV_LOCAL_STORAGE } from '../../resources/resources';
+import { HOME_PAGE_ROUTE } from '../../resources/routes';
 interface PokeDescProps {
     pokemon: Pokemon | undefined;
 }
 
 const getFavorites = () => {
-    const savedSearches = localStorage.getItem('favorites');
+    const savedSearches = localStorage.getItem(FAV_LOCAL_STORAGE);
     return savedSearches ? JSON.parse(savedSearches) : [];
   };
 
@@ -19,12 +21,12 @@ export const PokeDesc  = ({ pokemon } : PokeDescProps) => {
     const [favorites, setFavorites] = useState<Pokemon[]>(getFavorites);
     const navigate = useNavigate();
     const handleClick = () => { 
-        navigate("/");
+        navigate(HOME_PAGE_ROUTE);
     }
 
     useEffect(() => {
         // Store options in local storage whenever they change
-        localStorage.setItem('favorites', JSON.stringify(favorites));
+        localStorage.setItem(FAV_LOCAL_STORAGE, JSON.stringify(favorites));
     }, [favorites]);
 
     if (!pokemon) {

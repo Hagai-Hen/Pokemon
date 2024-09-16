@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { DropdownContainer, DropdownInput, DropdownList, DropdownItem, DropdownHeader, ClearButton, OptionText, RemoveButton, SearchContainer } from './styles.ts';
 import { Button } from '../Button/Button.tsx';
+import { RECENT_SEARCHES_LOCAL_STORAGE } from '../../resources/resources.ts';
 
 interface DropdownProps {
     options: string[];
@@ -15,7 +16,7 @@ export const DropDown: React.FC<DropdownProps> = ({ options, selectedOption, set
 
     useEffect(() => {
         // Store options in local storage whenever they change
-        localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
+        localStorage.setItem(RECENT_SEARCHES_LOCAL_STORAGE, JSON.stringify(recentSearches));
     }, [recentSearches]);
 
     const handleClickOutside = (event: MouseEvent) => {

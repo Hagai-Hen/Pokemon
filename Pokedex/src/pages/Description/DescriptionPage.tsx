@@ -3,15 +3,16 @@ import PokeDesc from "../../components/PokeDesc/PokeDesc";
 import { useParams } from "react-router-dom";
 import useSearch from "../../hooks/useSearch";
 import { useEffect } from "react";
+import { DESC_PAGE_TITLE } from "../../resources/resources";
 
 interface DescriptionPageProps {
   setActivePage: (page: string) => void;
 }
 
 function DescriptionPage({ setActivePage }: DescriptionPageProps) {
-  
+
   useEffect(() => {
-    setActivePage("Description");
+    setActivePage(DESC_PAGE_TITLE);
   }, []);
 
   const { name } = useParams<{ name: string }>();

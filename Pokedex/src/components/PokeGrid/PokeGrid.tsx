@@ -6,6 +6,7 @@ import { colors } from "../../resources/colors";
 import useSearch from "../../hooks/useSearch";
 import { Pokemon } from "../../resources/interfaces";
 import { useMemo } from "react";
+import { FAV_LOCAL_STORAGE } from "../../resources/resources";
 
 interface PokeGridProps {
   selectedOption?: string;
@@ -13,7 +14,7 @@ interface PokeGridProps {
 }
 
 const getFavorites = () => {
-  const savedSearches = localStorage.getItem('favorites');
+  const savedSearches = localStorage.getItem(FAV_LOCAL_STORAGE);
   return savedSearches ? JSON.parse(savedSearches) : [];
 };
 
