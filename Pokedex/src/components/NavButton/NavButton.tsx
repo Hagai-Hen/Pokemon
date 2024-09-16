@@ -16,7 +16,7 @@ export const NavButton = ({ children, isClicked = false, onClick }: NavButtonPro
     }, [isClicked]);
     return (
         <>
-            {<NavigatorButton backgroundColor={backgroundColor} onClick={onClick}>{children}</NavigatorButton>}
+            {<NavigatorButton $backgroundColor={backgroundColor} onClick={onClick}>{children}</NavigatorButton>}
         </>
     )
 }

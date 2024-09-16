@@ -61,7 +61,7 @@ export const DropDown: React.FC<DropdownProps> = ({ options, selectedOption, set
                 onClick={() => setIsOpen(prev => !prev)}
                 onChange={handleInputChange} 
             />
-            <DropdownList isOpen={isOpen}>
+            <DropdownList $isOpen={isOpen}>
                 <DropdownHeader>
                     Recent Searches
                     <ClearButton onClick={handleClear}>Clear</ClearButton>

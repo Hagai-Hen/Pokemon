@@ -56,7 +56,7 @@ export const PokeDesc  = ({ pokemon } : PokeDescProps) => {
                     <img src={pokemon.picture} />
                     <TitleContainer>{pokemon.name}</TitleContainer>
                     <ButtonContainer>
-                        {pokemon.types.map(type => (<Button backgroundColor={PokemonTypeColor[type] || colors.primary}>{type}</Button>))}
+                        {pokemon.types.map((type, i) => (<Button key={i} $backgroundColor={PokemonTypeColor[type] || colors.primary}>{type}</Button>))}
                     </ButtonContainer>
                 </LeftContainer>
                 <Separator />

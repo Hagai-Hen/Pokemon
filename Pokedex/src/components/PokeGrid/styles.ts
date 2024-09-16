@@ -1,6 +1,11 @@
 import styled from 'styled-components';
 
-export const GridContainer = styled.div`
+interface GridProps {
+    $isFav?: boolean;
+  }
+
+export const GridContainer = styled.div<GridProps>`
+    padding: ${({ $isFav }) => $isFav ? `100px 0 0 0` : ''};
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;

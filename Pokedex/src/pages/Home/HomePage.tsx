@@ -1,5 +1,5 @@
 import {DropDown} from '../../components/DropDown/DropDown';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import PokeGrid from "../../components/PokeGrid/PokeGrid";
 import { HOME_PAGE_TITLE } from '../../resources/resources';
 
@@ -13,7 +13,9 @@ const getInitialRecentSearches = () => {
 };
 
 function HomePage({ setActivePage } : HomePageProps) {
-  setActivePage(HOME_PAGE_TITLE);
+  useEffect(() => {
+    setActivePage(HOME_PAGE_TITLE);
+  }, [])
   
   const [recentSearches, setRecentSearches] = useState<string[]>(getInitialRecentSearches);
 

@@ -5,11 +5,11 @@ import Button from "../Button/Button";
 import { colors } from "../../resources/colors";
 import useSearch from "../../hooks/useSearch";
 import { Pokemon } from "../../resources/interfaces";
-import { useState } from "react";
+import { useMemo } from "react";
 
 interface PokeGridProps {
   selectedOption?: string;
-  isFav?: boolean;
+  $isFav?: boolean;
 }
 
 const getFavorites = () => {
@@ -17,17 +17,17 @@ const getFavorites = () => {
   return savedSearches ? JSON.parse(savedSearches) : [];
 };
 
-export const PokeGrid = ({ selectedOption, isFav=false }: PokeGridProps) => {
+export const PokeGrid = ({ selectedOption, $isFav=false }: PokeGridProps) => {
   const { pokemons, loadMore } = useGetPokemons();
   const { searchedPokemons } = useSearch(selectedOption);
-  const [favorites, setFavorites] = useState(getFavorites);
 
+  const favorites = useMemo(() => getFavorites(), []);
 
   return (
     <>
-      <GridContainer>
-        {isFav 
-            ? favorites.map((p) => <PokeCard key={p.id} pokemon={p} />)
+      <GridContainer $isFav={$isFav}>
+        {$isFav 
+            ? favorites.map((p: Pokemon) => <PokeCard key={p.id} pokemon={p} />)
             : (selectedOption
                 ? searchedPokemons.map((p) => <PokeCard key={p.id} pokemon={p} />)
                 : pokemons.map((p) => <PokeCard key={p.id} pokemon={p} />)
@@ -36,12 +36,12 @@ export const PokeGrid = ({ selectedOption, isFav=false }: PokeGridProps) => {
       </GridContainer>
 
       <ButtonContainer>
-        {!selectedOption && !isFav && (
+        {!selectedOption && !$isFav && (
           <Button
-            backgroundColor="white"
-            textColor={colors.primary}
+            $backgroundColor="white"
+            $textColor={colors.primary}
             onClick={loadMore}
-            border={true}
+            $border={true}
           >
             Load More...
           </Button>

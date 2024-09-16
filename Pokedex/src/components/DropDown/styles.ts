@@ -22,11 +22,11 @@ export const DropdownInput = styled.input`
 `;
 
 interface DropdownListProps {
-    isOpen: boolean;
+    $isOpen: boolean;
   }
 
   export const DropdownList = styled.div<DropdownListProps>`
-    display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+    display: ${({ $isOpen }) => ($isOpen ? 'block' : 'none')};
     position: absolute;
     top: 100%;
     left: 0;

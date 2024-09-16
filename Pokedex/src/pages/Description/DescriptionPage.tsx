@@ -2,13 +2,18 @@ import useGetPokemons from "../../hooks/useGetPokemons";
 import PokeDesc from "../../components/PokeDesc/PokeDesc";
 import { useParams } from "react-router-dom";
 import useSearch from "../../hooks/useSearch";
+import { useEffect } from "react";
 
 interface DescriptionPageProps {
   setActivePage: (page: string) => void;
 }
 
 function DescriptionPage({ setActivePage }: DescriptionPageProps) {
-  setActivePage("Description");
+  
+  useEffect(() => {
+    setActivePage("Description");
+  }, []);
+
   const { name } = useParams<{ name: string }>();
   const { pokemons } = useGetPokemons();
   const { searchedPokemons } = useSearch(name);

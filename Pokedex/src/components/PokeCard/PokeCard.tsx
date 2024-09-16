@@ -9,7 +9,7 @@ interface PokeCardProps {
 export const PokeCard  = ({ pokemon } : PokeCardProps) => {
     const navigate = useNavigate();
     const handleClick = () => {
-        navigate(`desc/${pokemon.name}`);
+        navigate(`/desc/${pokemon.name}`, { replace: true });
     }
     return (
         <>
