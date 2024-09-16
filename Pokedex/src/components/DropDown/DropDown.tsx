@@ -12,6 +12,12 @@ const getInitialRecentSearches = () => {
     return savedSearches ? JSON.parse(savedSearches) : [];
 };
 
+const setRecentSearchesHelper = (prev: string[], inputValue: string) => {
+    const filteredList = prev.filter(item => item !== inputValue);
+    const updatedList = [inputValue, ...filteredList].slice(0, 3);
+    return updatedList;
+}
+
 export const DropDown: React.FC<DropdownProps> = ({ searchQuery, setSearchQuery }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [recentSearches, setRecentSearches] = useState<string[]>(getInitialRecentSearches);
@@ -35,7 +41,9 @@ export const DropDown: React.FC<DropdownProps> = ({ searchQuery, setSearchQuery 
         }
         debounceTimer.current = setTimeout(() => {
             setSearchQuery(inputValue);
-            if (inputValue) setRecentSearches((prev) => [inputValue, ...prev]);
+            if (!inputValue) return;
+
+            setRecentSearches((prev) => setRecentSearchesHelper(prev, inputValue));
         }, 500);
 
         // Cleanup function
@@ -70,9 +78,9 @@ export const DropDown: React.FC<DropdownProps> = ({ searchQuery, setSearchQuery 
     };
 
     const handleSearchClick = () => {
-        if (searchQuery) {
-            setRecentSearches((prev) => [searchQuery, ...prev]);
-        }
+        if (!searchQuery) return;
+
+        setRecentSearches((prev) => setRecentSearchesHelper(prev, searchQuery));
     };
 
     return (
