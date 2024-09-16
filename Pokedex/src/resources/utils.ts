@@ -1,4 +1,5 @@
 import { Pokemon } from "./interfaces";
+import { PokemonApiCall } from "./interfaces";
 
 const capitalizeFirstLetter = (str: string): string => {
     if (!str) return str;
@@ -44,7 +45,7 @@ export const fetchPokemonDetails = async (url: string): Promise<Pokemon> => {
     return {
         name: capitalizeFirstLetter(data.name),
         id: data.id,
-        types: data.types.map((t: any) => capitalizeFirstLetter(t.type.name)),
+        types: data.types.map((t: PokemonApiCall) => capitalizeFirstLetter(t.type.name)),
         picture: data.sprites.front_default,
         stats: stats,
         description: description,
