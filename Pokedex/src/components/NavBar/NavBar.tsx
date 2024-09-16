@@ -1,9 +1,9 @@
-import { NavigatorBar, ButtonsContainer } from "./styles";
+import { NavigatorBar, ButtonsContainer, LogoContainer } from "./styles";
 import logo from "../../assets/logo.png";
 import { NavButton } from "../NavButton/NavButton";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
-import { PAGES } from "../../resources/routes";
+import { HOME_ROUTE, PAGES } from "../../resources/routes";
 
 interface NavBarProps {
   activePage: string;
@@ -18,7 +18,9 @@ export const NavBar = ({ activePage }: NavBarProps) => {
 
   return (
     <NavigatorBar>
-      <img src={logo} alt="logo" />
+      <LogoContainer>
+        <img src={logo} alt="logo" onClick={() => navigate(HOME_ROUTE)} />
+      </LogoContainer>
       <ButtonsContainer>
         {PAGES.map((page) => (
           <NavButton

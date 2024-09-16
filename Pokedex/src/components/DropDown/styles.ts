@@ -47,6 +47,7 @@ export const DropdownItem = styled.div`
 
     &:hover {
         background-color: #f1f1f1;
+        border-radius: 9px;
     }
 `;
 
@@ -82,6 +83,7 @@ export const DropdownHeader = styled.div`
     background-color: #ffffff;
     color: ${colors.primary};
     font-family: arial;
+    border-radius: 9px;
 `;
 
 export const SearchContainer = styled.div`

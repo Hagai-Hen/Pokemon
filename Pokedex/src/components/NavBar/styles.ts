@@ -32,3 +32,9 @@ export const ButtonsContainer = styled.div`
         display: none;
     }
 `;
+
+export const LogoContainer = styled.div`
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+`;

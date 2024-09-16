@@ -7,21 +7,14 @@ interface HomePageProps {
   setActivePage: (page: string) => void,
 }
 
-const getInitialRecentSearches = () => {
-  const savedSearches = localStorage.getItem('recentSearches');
-  return savedSearches ? JSON.parse(savedSearches) : [];
-};
-
 function HomePage({ setActivePage } : HomePageProps) {
   setActivePage(HOME_PAGE_TITLE);
   
-  const [recentSearches, setRecentSearches] = useState<string[]>(getInitialRecentSearches);
-
   const [selectedPokemon, setSelectedPokemon] = useState('');
 
   return (
     <>
-      <DropDown options={recentSearches} selectedOption={selectedPokemon} setSelectedOption={setSelectedPokemon} />
+      <DropDown selectedOption={selectedPokemon} setSelectedOption={setSelectedPokemon} />
       <PokeGrid selectedOption={selectedPokemon} />
     </>
   )

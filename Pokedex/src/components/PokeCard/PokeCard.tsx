@@ -1,6 +1,7 @@
 import { CardContainer, IdContainer, TitleContainer } from './styles';
 import { Pokemon } from '../../resources/interfaces';
 import { useNavigate } from 'react-router-dom';
+import { DESCRIPTION_ROUTE } from '../../resources/routes';
 
 interface PokeCardProps {
     pokemon: Pokemon;
@@ -9,7 +10,7 @@ interface PokeCardProps {
 export const PokeCard  = ({ pokemon } : PokeCardProps) => {
     const navigate = useNavigate();
     const handleClick = () => {
-        navigate(`desc/${pokemon.name}`);
+        navigate(`${DESCRIPTION_ROUTE}/${pokemon.name}`);
     }
     return (
         <>

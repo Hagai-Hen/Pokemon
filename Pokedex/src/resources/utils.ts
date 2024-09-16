@@ -30,6 +30,7 @@ export const fetchPokemonDetails = async (url: string): Promise<Pokemon> => {
         acc[stat.stat.name] = stat.base_stat;
         return acc;
     }, {});
+
     const total = data.stats.reduce((sum: number, stat: any) => sum + stat.base_stat, 0);
     stats['total'] = total;
 

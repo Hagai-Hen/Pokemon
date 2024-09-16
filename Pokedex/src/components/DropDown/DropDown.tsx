@@ -3,20 +3,48 @@ import { DropdownContainer, DropdownInput, DropdownList, DropdownItem, DropdownH
 import { Button } from '../Button/Button.tsx';
 
 interface DropdownProps {
-    options: string[];
     selectedOption: string,
     setSelectedOption: (opt: string) => void,
 }
 
-export const DropDown: React.FC<DropdownProps> = ({ options, selectedOption, setSelectedOption }) => {
+const getInitialRecentSearches = () => {
+    const savedSearches = localStorage.getItem('recentSearches');
+    return savedSearches ? JSON.parse(savedSearches) : [];
+};
+
+export const DropDown: React.FC<DropdownProps> = ({ selectedOption, setSelectedOption }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [recentSearches, setRecentSearches] = useState<string[]>(options);
+    const [recentSearches, setRecentSearches] = useState<string[]>(getInitialRecentSearches);
+    const [inputValue, setInputValue] = useState(selectedOption);
     const containerRef = useRef<HTMLDivElement>(null);
+    const debounceTimer = useRef<number | null>(null);
 
     useEffect(() => {
         // Store options in local storage whenever they change
         localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
     }, [recentSearches]);
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    useEffect(() => {
+        if (debounceTimer.current) {
+            clearTimeout(debounceTimer.current);
+        }
+        debounceTimer.current = setTimeout(() => {
+            setSelectedOption(inputValue);
+            // if (inputValue) setRecentSearches((prev) => [...prev, inputValue]);
+        }, 500);
+
+        // Cleanup function
+        return () => {
+            if (debounceTimer.current) {
+                clearTimeout(debounceTimer.current);
+            }
+        };
+    }, [inputValue, setSelectedOption]);
 
     const handleClickOutside = (event: MouseEvent) => {
         if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
@@ -25,7 +53,7 @@ export const DropDown: React.FC<DropdownProps> = ({ options, selectedOption, set
     };
 
     const handleOptionClick = (option: string) => {
-        setSelectedOption(option);
+        setInputValue(option);
         setIsOpen(false);
     };
 
@@ -38,45 +66,39 @@ export const DropDown: React.FC<DropdownProps> = ({ options, selectedOption, set
     };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSelectedOption(event.target.value);
+        setInputValue(event.target.value);
     };
 
     const handleSearchClick = () => {
         if (selectedOption) {
             setRecentSearches((prev) => [...prev, selectedOption]);
         }
-    }
-
-    useEffect(() => {
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
+    };
 
     return (
         <SearchContainer>
-        <DropdownContainer ref={containerRef}>
-            <DropdownInput
-                type="text"
-                value={selectedOption}
-                onClick={() => setIsOpen(prev => !prev)}
-                onChange={handleInputChange} 
-            />
-            <DropdownList isOpen={isOpen}>
-                <DropdownHeader>
-                    Recent Searches
-                    <ClearButton onClick={handleClear}>Clear</ClearButton>
-                </DropdownHeader>
-                {recentSearches.map((option, index) => (
-                    <DropdownItem key={index}>
-                        <OptionText onClick={() => handleOptionClick(option)}>{option}</OptionText>
-                        <RemoveButton onClick={() => handleRemoveOption(option)}>X</RemoveButton>
-                    </DropdownItem>
-                ))}
-            </DropdownList>
-        </DropdownContainer>
-        <Button onClick={handleSearchClick}>Search</Button>
+            <DropdownContainer ref={containerRef}>
+                <DropdownInput
+                    type="text"
+                    value={inputValue}
+                    onClick={() => setIsOpen(prev => !prev)}
+                    onChange={handleInputChange} 
+                />
+                <DropdownList isOpen={isOpen}>
+                    <DropdownHeader>
+                        Recent Searches
+                        <ClearButton onClick={handleClear}>Clear</ClearButton>
+                    </DropdownHeader>
+                    {recentSearches.map((option, index) => (
+                        <DropdownItem key={index}>
+                            <OptionText onClick={() => handleOptionClick(option)}>{option}</OptionText>
+                            <RemoveButton onClick={() => handleRemoveOption(option)}>X</RemoveButton>
+                        </DropdownItem>
+                    ))}
+                </DropdownList>
+            </DropdownContainer>
+            <Button onClick={handleSearchClick}>Search</Button>
         </SearchContainer>
-
     );
 };
 

@@ -1,10 +1,12 @@
-import { HomePageButton, ButtonWrapper ,ButtonContainer, DescContainer, DescSection, IconContainer, IdContainer, LeftContainer, RightContainer, Separator, StatsContainer, StatsSection, TitleContainer, Container, } from './styles';
+import { ButtonWrapper ,ButtonContainer, DescContainer, DescSection, IconContainer, IdContainer, LeftContainer, RightContainer, Separator, StatsContainer, StatsSection, TitleContainer, Container, } from './styles';
 import { Pokemon } from '../../resources/interfaces';
 import FavIcon from '../../assets/fav_icon.png';
 import Button from '../Button/Button';
 import { useNavigate } from 'react-router-dom';
 import RightArrow from '../../assets/right_arrow.png';
 import { colors, PokemonTypeColor } from '../../resources/colors';
+import { ClearButton } from '../DropDown/styles';
+import { HOME_ROUTE } from '../../resources/routes';
 
 interface PokeDescProps {
     pokemon: Pokemon | undefined;
@@ -13,7 +15,7 @@ interface PokeDescProps {
 export const PokeDesc  = ({ pokemon } : PokeDescProps) => {
     const navigate = useNavigate();
     const handleClick = () => { 
-        navigate("/");
+        navigate(HOME_ROUTE);
     }
 
     if (!pokemon) {
@@ -24,7 +26,7 @@ export const PokeDesc  = ({ pokemon } : PokeDescProps) => {
         <Container>
             <ButtonWrapper>
                 <img src={RightArrow} onClick={handleClick}/>
-                <HomePageButton onClick={handleClick}>Home Page</HomePageButton>
+                <ClearButton onClick={handleClick}>Home Page</ClearButton>
             </ButtonWrapper>
             <DescContainer>
                 <IdContainer>#{pokemon.id}</IdContainer>
@@ -52,7 +54,7 @@ export const PokeDesc  = ({ pokemon } : PokeDescProps) => {
                         <StatsSection>
                             <p>Special Atk: {pokemon.stats['special-attack']}</p>
                             <p>Attack: {pokemon.stats['special-defense']}</p>
-                            <p>Speed : {pokemon.stats.speed}</p>
+                            <p>Speed: {pokemon.stats.speed}</p>
                         </StatsSection>
                         <StatsSection>
                             <p>Total: {pokemon.stats.total}</p>
