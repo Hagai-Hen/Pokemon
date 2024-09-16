@@ -6,23 +6,23 @@ import { colors } from "../../resources/colors";
 import useSearch from "../../hooks/useSearch";
 
 interface PokeGridProps {
-  selectedOption: string;
+  searchQuery: string;
 }
 
-export const PokeGrid = ({ selectedOption }: PokeGridProps) => {
+export const PokeGrid = ({ searchQuery }: PokeGridProps) => {
   const { pokemons, loadMore } = useGetPokemons();
-  const { searchedPokemons } = useSearch(selectedOption);
+  const { searchedPokemons } = useSearch(searchQuery);
 
   return (
     <>
       <GridContainer>
-        {selectedOption
+        {searchQuery
           ? searchedPokemons.map((p) => <PokeCard key={p.id} pokemon={p} />)
           : pokemons.map((p) => <PokeCard key={p.id} pokemon={p} />)}
       </GridContainer>
 
       <ButtonContainer>
-        {!selectedOption && (
+        {!searchQuery && (
           <Button
             backgroundColor="white"
             textColor={colors.primary}

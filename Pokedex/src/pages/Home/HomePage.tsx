@@ -10,12 +10,12 @@ interface HomePageProps {
 function HomePage({ setActivePage } : HomePageProps) {
   setActivePage(HOME_PAGE_TITLE);
   
-  const [selectedPokemon, setSelectedPokemon] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
 
   return (
     <>
-      <DropDown selectedOption={selectedPokemon} setSelectedOption={setSelectedPokemon} />
-      <PokeGrid selectedOption={selectedPokemon} />
+      <DropDown searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      <PokeGrid searchQuery={searchQuery} />
     </>
   )
 }

@@ -3,8 +3,8 @@ import { DropdownContainer, DropdownInput, DropdownList, DropdownItem, DropdownH
 import { Button } from '../Button/Button.tsx';
 
 interface DropdownProps {
-    selectedOption: string,
-    setSelectedOption: (opt: string) => void,
+    searchQuery: string,
+    setSearchQuery: (opt: string) => void,
 }
 
 const getInitialRecentSearches = () => {
@@ -12,10 +12,10 @@ const getInitialRecentSearches = () => {
     return savedSearches ? JSON.parse(savedSearches) : [];
 };
 
-export const DropDown: React.FC<DropdownProps> = ({ selectedOption, setSelectedOption }) => {
+export const DropDown: React.FC<DropdownProps> = ({ searchQuery, setSearchQuery }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [recentSearches, setRecentSearches] = useState<string[]>(getInitialRecentSearches);
-    const [inputValue, setInputValue] = useState(selectedOption);
+    const [inputValue, setInputValue] = useState(searchQuery);
     const containerRef = useRef<HTMLDivElement>(null);
     const debounceTimer = useRef<number | null>(null);
 
@@ -34,8 +34,8 @@ export const DropDown: React.FC<DropdownProps> = ({ selectedOption, setSelectedO
             clearTimeout(debounceTimer.current);
         }
         debounceTimer.current = setTimeout(() => {
-            setSelectedOption(inputValue);
-            // if (inputValue) setRecentSearches((prev) => [...prev, inputValue]);
+            setSearchQuery(inputValue);
+            if (inputValue) setRecentSearches((prev) => [inputValue, ...prev]);
         }, 500);
 
         // Cleanup function
@@ -44,7 +44,7 @@ export const DropDown: React.FC<DropdownProps> = ({ selectedOption, setSelectedO
                 clearTimeout(debounceTimer.current);
             }
         };
-    }, [inputValue, setSelectedOption]);
+    }, [inputValue, setSearchQuery]);
 
     const handleClickOutside = (event: MouseEvent) => {
         if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
@@ -57,8 +57,8 @@ export const DropDown: React.FC<DropdownProps> = ({ selectedOption, setSelectedO
         setIsOpen(false);
     };
 
-    const handleRemoveOption = (option: string) => {
-        setRecentSearches(recentSearches.filter(item => item !== option));
+    const handleRemoveOption = (index: number) => {
+        setRecentSearches((prevSearches) => prevSearches.filter((_, i) => i !== index));
     };
 
     const handleClear = () => {
@@ -70,8 +70,8 @@ export const DropDown: React.FC<DropdownProps> = ({ selectedOption, setSelectedO
     };
 
     const handleSearchClick = () => {
-        if (selectedOption) {
-            setRecentSearches((prev) => [...prev, selectedOption]);
+        if (searchQuery) {
+            setRecentSearches((prev) => [searchQuery, ...prev]);
         }
     };
 
@@ -92,7 +92,7 @@ export const DropDown: React.FC<DropdownProps> = ({ selectedOption, setSelectedO
                     {recentSearches.map((option, index) => (
                         <DropdownItem key={index}>
                             <OptionText onClick={() => handleOptionClick(option)}>{option}</OptionText>
-                            <RemoveButton onClick={() => handleRemoveOption(option)}>X</RemoveButton>
+                            <RemoveButton onClick={() => handleRemoveOption(index)}>X</RemoveButton>
                         </DropdownItem>
                     ))}
                 </DropdownList>
