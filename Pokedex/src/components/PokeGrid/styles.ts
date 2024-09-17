@@ -7,7 +7,7 @@ export const GridContainer = styled.div`
     box-sizing: border-box;
     border-radius: 9px;
     border: 1px solid transparent;
-    max-width: 1070px;
+    max-width: 900px;
     margin: auto;
 
     @media (max-width: 1200px) {

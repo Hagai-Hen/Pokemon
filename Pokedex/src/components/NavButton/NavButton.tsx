@@ -6,7 +6,7 @@ import { useMemo } from "react";
 interface NavButtonProps {
     isClicked?: boolean,
     children: ReactNode,
-    onClick: () => void,
+    onClick: () => void;
 }
 
 export const NavButton = ({ children, isClicked = false, onClick }: NavButtonProps) => {

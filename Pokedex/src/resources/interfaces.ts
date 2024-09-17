@@ -6,4 +6,13 @@ export interface Pokemon {
     stats: {
         [key: string]: number;
     };
+    description: string;
+}
+
+export interface PokemonApiCall {
+    url: string;
+    name: string;
+    type: {
+        name: string;
+    }
 }

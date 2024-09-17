@@ -4,6 +4,7 @@ import { colors } from "../../resources/colors";
 interface ButtonProps {
     backgroundColor?: string;
     textColor?: string;
+    border?: boolean;
   }
 
 export const StyledButton = styled.button<ButtonProps>`
@@ -13,6 +14,6 @@ export const StyledButton = styled.button<ButtonProps>`
     text-align: center;
     cursor: pointer;
     border-radius: 9px;
-    border: 1px solid ${colors.primary};
+    border: ${({ border }) => border ? `1px solid ${colors.primary}` : 'none'};
     padding: 0 20px;
 `;
