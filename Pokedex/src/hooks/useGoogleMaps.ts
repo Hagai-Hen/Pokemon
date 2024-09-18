@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { Coordinate } from "../resources/interfaces";
 import { MOVEO_OFFICE } from "../resources/locations";
 import MoveoLogo from "../assets/moveo_logo.png";
+import { createContentElement } from "../resources/elements";
 
 const calculateMidpoint = (
   point1: Coordinate,
@@ -19,13 +20,9 @@ const useGoogleMap = (
 ) => {
   const mapRef = useRef<HTMLDivElement | null>(null);
 
-  const moveoIcon = document.createElement("img");
-  moveoIcon.src = MoveoLogo;
+  const moveoContentElement = createContentElement("Moveo Office", MoveoLogo);
+  const pokemonContentElement = createContentElement("", pokemonPic, '50px', '50px');
 
-  const pokemonIcon = document.createElement("img");
-  pokemonIcon.src = pokemonPic;
-  pokemonIcon.style.width = "50px";
-  pokemonIcon.style.height = "50px";
 
   useEffect(() => {
     const initMap = async () => {
@@ -79,14 +76,14 @@ const useGoogleMap = (
           map: map,
           position: MOVEO_OFFICE,
           title: "Moveo Office",
-          content: moveoIcon,
+          content: moveoContentElement,
         });
 
         new AdvancedMarkerElement({
           map: map,
           position: pokemonLocation,
           title: "Pokemon Location",
-          content: pokemonIcon,
+          content: pokemonContentElement,
         });
       }
     };
