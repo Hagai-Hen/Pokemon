@@ -77,7 +77,7 @@ export const PokeDesc = ({ pokemon, pokemonLocation }: PokeDescProps) => {
                     </LocationContainer>
                 </RightContainer>
             </DescContainer>
-            <Map pokemonLocation={pokemonLocation} showDirections={showDirections}/>
+            <Map pokemonLocation={pokemonLocation} showDirections={showDirections} pokemonPic={pokemon.picture}/>
         </Container>
     );
 };

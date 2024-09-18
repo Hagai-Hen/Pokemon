@@ -6,10 +6,11 @@ import { Coordinate } from '../../resources/interfaces';
 interface MapProps {
   pokemonLocation: Coordinate;
   showDirections: boolean;
+  pokemonPic: string;
 }
 
-const Map: React.FC<MapProps> = ({ pokemonLocation, showDirections }) => {
-  const { mapRef } = useGoogleMap(pokemonLocation, showDirections);
+const Map: React.FC<MapProps> = ({ pokemonLocation, showDirections, pokemonPic }) => {
+  const { mapRef } = useGoogleMap(pokemonLocation, showDirections, pokemonPic);
 
   return (
     <Container>
