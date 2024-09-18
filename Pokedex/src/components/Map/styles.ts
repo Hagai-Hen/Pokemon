@@ -7,6 +7,6 @@ export const Container = styled.div`
 
 export const MapContainer = styled.div`
     display: flex;
-    padding: 50px 0;
+    margin-top: 50px;
     justify-content: center;
 `;

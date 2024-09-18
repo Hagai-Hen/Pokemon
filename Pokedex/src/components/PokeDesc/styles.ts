@@ -184,6 +184,7 @@ export const HomePageButton = styled.button`
 
 export const LocationContainer = styled.div`
     display: flex;
-    gap: 10px;
+    flex: 1;
+    gap: 70px;
     align-items: center;
 `;

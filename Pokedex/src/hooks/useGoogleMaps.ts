@@ -35,9 +35,12 @@ const useGoogleMap = (
       }
 
       const { Map } = await window.google.maps.importLibrary("maps");
-      const { AdvancedMarkerElement } = await window.google.maps.importLibrary(
-        "marker"
-      );
+      const { AdvancedMarkerElement } = await window.google.maps.importLibrary("marker");
+
+      // Create bounds for the two locations
+      const bounds = new window.google.maps.LatLngBounds();
+      bounds.extend(MOVEO_OFFICE);
+      bounds.extend(pokemonLocation);
 
       const centerPoint = calculateMidpoint(MOVEO_OFFICE, pokemonLocation);
 
@@ -47,6 +50,8 @@ const useGoogleMap = (
         center: centerPoint,
         mapId: "INIT_MAP",
       });
+
+      map.fitBounds(bounds);
 
       if (showDirections) {
         const directionsService = new window.google.maps.DirectionsService();

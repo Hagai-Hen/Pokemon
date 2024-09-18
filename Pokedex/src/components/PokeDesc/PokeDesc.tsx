@@ -31,6 +31,9 @@ export const PokeDesc = ({ pokemon, pokemonLocation }: PokeDescProps) => {
     if (!pokemon) {
         return <div>Loading...</div>;
     }
+
+    const formattedLat = pokemonLocation.lat.toFixed(5);
+    const formattedLng = pokemonLocation.lng.toFixed(5);
     
     return (
         <Container>
@@ -72,7 +75,7 @@ export const PokeDesc = ({ pokemon, pokemonLocation }: PokeDescProps) => {
                     </StatsContainer>
                     <LocationContainer>
                         <h2>Location</h2>
-                        {pokemonLocation.lat}, {pokemonLocation.lng}
+                        {formattedLat}, {formattedLng}
                         <Button onClick={handleShowDirections}>{showDirections ? 'Hide Directions' : 'Show Directions'}</Button>
                     </LocationContainer>
                 </RightContainer>
