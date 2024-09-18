@@ -183,4 +183,8 @@ export const LocationContainer = styled.div`
     flex: 1;
     gap: 70px;
     align-items: center;
+
+    @media (max-width: 500px) {
+        gap: 10px;
+    }
 `;
