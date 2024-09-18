@@ -1,4 +1,4 @@
-import { ButtonWrapper ,ButtonContainer, DescContainer, DescSection, IconContainer, IdContainer, LeftContainer, RightContainer, Separator, StatsContainer, StatsSection, TitleContainer, Container, } from './styles';
+import { ButtonWrapper ,ButtonContainer, DescContainer, DescSection, IconContainer, IdContainer, LeftContainer, RightContainer, Separator, StatsContainer, StatsSection, TitleContainer, Container, LocationContainer} from './styles';
 import { Pokemon } from '../../resources/interfaces';
 import FavIcon from '../../assets/fav_icon.png';
 import Button from '../Button/Button';
@@ -7,6 +7,9 @@ import RightArrow from '../../assets/right_arrow.png';
 import { colors, PokemonTypeColor } from '../../resources/colors';
 import { ClearButton } from '../DropDown/styles';
 import { HOME_ROUTE } from '../../resources/routes';
+import Map from '../Map/Map';
+import { generateRandomPointInPolygon } from '../../resources/utils';
+import { TLV_POLYGON } from '../../resources/locations';
 
 interface PokeDescProps {
     pokemon: Pokemon | undefined;
@@ -16,11 +19,12 @@ export const PokeDesc  = ({ pokemon } : PokeDescProps) => {
     const navigate = useNavigate();
     const handleClick = () => { 
         navigate(HOME_ROUTE);
-    }
-
+    }    
     if (!pokemon) {
         return <div>Loading...</div>;
     }
+
+    const pokemonLocation = generateRandomPointInPolygon(TLV_POLYGON);
 
     return (
         <Container>
@@ -60,8 +64,14 @@ export const PokeDesc  = ({ pokemon } : PokeDescProps) => {
                             <p>Total: {pokemon.stats.total}</p>
                         </StatsSection>
                     </StatsContainer>
+                    <LocationContainer>
+                        <h2>Location</h2>
+                        {pokemonLocation.lat}, {pokemonLocation.lng}
+                        <Button>Show Directions</Button>
+                    </LocationContainer>
                 </RightContainer>
             </DescContainer>
+            <Map pokemonLocation={pokemonLocation} />
         </Container>
     );
 };

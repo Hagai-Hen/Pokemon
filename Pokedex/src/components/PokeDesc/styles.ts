@@ -5,6 +5,7 @@ export const Container = styled.div`
     position: relative;
     flex-direction: column;
     flex: 1;
+    height: 100vh;
 `;
 
 
@@ -21,6 +22,7 @@ export const DescContainer = styled.button`
     box-shadow: 2px 2px 4px 0px #00000026;
     color: #020166;
     margin: 0 auto;
+    padding: 20px;
 
     @media (max-width: 950px) {
         max-width: 650px;
@@ -29,7 +31,7 @@ export const DescContainer = styled.button`
     @media (max-width: 700px) {
         flex-direction: column;
         width: 90%;
-        height: 700px;
+        height: 800px;
     }
 `;
 
@@ -178,4 +180,10 @@ export const HomePageButton = styled.button`
     color: #373299;
     cursor: pointer;
     font-size: 14px;
+`;
+
+export const LocationContainer = styled.div`
+    display: flex;
+    gap: 10px;
+    align-items: center;
 `;
