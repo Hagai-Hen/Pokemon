@@ -14,37 +14,11 @@ const calculateMidpoint = (
   return { lat, lng };
 };
 
-const placeCustomMarkers = (
-  response: google.maps.DirectionsResult | null,
-  map: google.maps.Map,
-  moveoContent: HTMLDivElement,
-  pokemonContent: HTMLDivElement
-) => {
-  const legs = response?.routes[0].legs;
-
-  if (legs) {
-    const startLocation = legs[0].start_location;
-    const startInfoWindow = new window.google.maps.InfoWindow({
-      content: pokemonContent,
-    });
-    startInfoWindow.setPosition(startLocation);
-    startInfoWindow.open(map);
-
-    // Create an InfoWindow for the ending point
-    const endLocation = legs[0].end_location;
-    const endInfoWindow = new window.google.maps.InfoWindow({
-      content: moveoContent,
-    });
-    endInfoWindow.setPosition(endLocation);
-    endInfoWindow.open(map);
-  }
-};
-
 const useGoogleMap = (
   pokemonLocation: Coordinate,
   showDirections: boolean,
   pokemonPic: string,
-  chosenWay: string,
+  chosenWay: string
 ) => {
   const mapRef = useRef<HTMLDivElement | null>(null);
 
@@ -68,14 +42,12 @@ const useGoogleMap = (
         "marker"
       );
 
-      // Create bounds for the two locations
       const bounds = new window.google.maps.LatLngBounds();
       bounds.extend(MOVEO_OFFICE);
       bounds.extend(pokemonLocation);
 
       const centerPoint = calculateMidpoint(MOVEO_OFFICE, pokemonLocation);
 
-      // Initialize the map centered at the center point
       const map = new Map(mapRef.current!, {
         zoom: 11,
         center: centerPoint,
@@ -101,25 +73,19 @@ const useGoogleMap = (
           {
             origin: pokemonLocation,
             destination: MOVEO_OFFICE,
-            travelMode: window.google.maps.TravelMode[chosenWay as TravelModeKey],
+            travelMode:
+              window.google.maps.TravelMode[chosenWay as TravelModeKey],
           },
 
           (result, status) => {
             if (status === window.google.maps.DirectionsStatus.OK) {
               directionsRenderer.setDirections(result);
-              // placeCustomMarkers(
-              //   result,
-              //   map,
-              //   moveoContentElement,
-              //   pokemonContentElement
-              // );
             } else {
               console.error("Directions request failed due to " + status);
             }
           }
         );
       } else {
-        // Add markers to the map
         new AdvancedMarkerElement({
           map: map,
           position: MOVEO_OFFICE,
