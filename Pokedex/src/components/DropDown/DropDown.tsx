@@ -23,7 +23,7 @@ export const DropDown: React.FC<DropdownProps> = ({ searchQuery, setSearchQuery 
     const [recentSearches, setRecentSearches] = useState<string[]>(getInitialRecentSearches);
     const [inputValue, setInputValue] = useState(searchQuery);
     const containerRef = useRef<HTMLDivElement>(null);
-    const debounceTimer = useRef<number | null>(null);
+    const debounceTimer = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
         // Store options in local storage whenever they change

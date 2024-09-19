@@ -5,7 +5,6 @@ export const NavigatorBar = styled.div`
     background-color: ${colors.primary};
     width: 100%;
     height: 67px;
-    flex-direction: row;
     display: flex;
     flex-direction: row;
     padding: 0 100px;
