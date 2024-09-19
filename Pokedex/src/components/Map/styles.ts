@@ -9,4 +9,9 @@ export const MapContainer = styled.div`
     display: flex;
     margin-top: 20px;
     justify-content: center;
+
+    .map {
+    width: 400px;
+    height: 400px;
+    }
 `;

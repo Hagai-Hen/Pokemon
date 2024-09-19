@@ -16,7 +16,7 @@ const Map: React.FC<MapProps> = ({ pokemonLocation, showDirections, pokemonPic, 
   return (
     <Container>
       <MapContainer>
-        <div ref={mapRef} style={{ height: '400px', width: '400px' }}/>
+        <div ref={mapRef} className='map' />
       </MapContainer>
     </Container>
   );

@@ -1,7 +1,15 @@
 export const colors = {
     primary: '#373299',
     secondary: '#94D97E',
+    CARD_BACKGROUND: '#F7F7F9',
+    CARD_HOVER: '#f6f6f6',
+    CARD_PRESSED: '#686188',
+    CARD_ACTIVE: '#e0e0e0',
+    SEPARATOR: '#d7d7d7',
+    SHADOW: '#00000026',
     default: 'black',
+    SHOW_DIR: 'Show Directions',
+    HIDE_DIR: 'Hide_Directions',
 };
 
 export const PokemonTypeColor: Record<string, string> = {

@@ -33,7 +33,6 @@ const useGoogleMap = (
   useEffect(() => {
     const initMap = async () => {
       if (!window.google) {
-        console.log("Google Maps JavaScript API not loaded.");
         return;
       }
 
@@ -52,6 +51,10 @@ const useGoogleMap = (
         zoom: 11,
         center: centerPoint,
         mapId: MAP_ID,
+        fullscreenControl: false,
+        zoomControl: false,
+        streetViewControl: false,
+        mapTypeControl: false,
       });
 
       map.fitBounds(bounds);

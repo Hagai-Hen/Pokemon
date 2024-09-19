@@ -13,7 +13,8 @@ import DrivingIcon from '../../assets/car.png';
 import TransportIcon from '../../assets/transport.png';
 import BikeIcon from '../../assets/bike.png';
 import PedestrianIcon from '../../assets/pedestrian.png';
-import { BICYCLING, DRIVING, TRANSIT, WALKING } from '../../resources/resources';
+import { DESCRIPTION, DIRECTIONS } from '../../resources/resources';
+import { useCallback } from 'react';
 
 interface PokeDescProps {
     pokemon: Pokemon | undefined;
@@ -25,21 +26,21 @@ export const PokeDesc = ({ pokemon, pokemonLocation }: PokeDescProps) => {
     const [showDirections, setShowDirections] = useState(false);
     const [chosenWay, setChosenWay] = useState('DRIVING');
 
-    const handleShowDirections = () => {
+    const handleShowDirections = useCallback(() => {
         setShowDirections(prev => !prev);
-    }
+    }, []);
 
-    const handleIconClick = (chosenWay: string) => {
+    const handleIconClick = useCallback((chosenWay: string) => {
         setChosenWay(chosenWay);
-    }
+    }, []);
 
     const navigate = useNavigate();
-    const handleClick = () => { 
+    const handleClick = () => {
         navigate(HOME_ROUTE);
-    };    
+    };
 
     if (!pokemon) {
-        return <div>Loading...</div>;
+        return <div>{DESCRIPTION.LOADING}</div>;
     }
 
     const formattedLat = pokemonLocation.lat.toFixed(5);
@@ -49,7 +50,7 @@ export const PokeDesc = ({ pokemon, pokemonLocation }: PokeDescProps) => {
         <Container>
             <ButtonWrapper>
                 <img src={RightArrow} onClick={handleClick} />
-                <ClearButton onClick={handleClick}>Home Page</ClearButton>
+                <ClearButton onClick={handleClick}>{DESCRIPTION.HOME_PAGE_BUTTON}</ClearButton>
             </ButtonWrapper>
             <DescContainer>
                 <IdContainer>#{pokemon.id}</IdContainer>
@@ -63,45 +64,45 @@ export const PokeDesc = ({ pokemon, pokemonLocation }: PokeDescProps) => {
                 </LeftContainer>
                 <Separator />
                 <RightContainer>
-                    <h2>Description</h2>
+                    <h2>{DESCRIPTION.TITLE}</h2>
                     <DescSection>
                         <p>{pokemon.description}</p>
                     </DescSection>
-                    <h2>Stats</h2>
+                    <h2>{DESCRIPTION.STATS}</h2>
                     <StatsContainer>
                         <StatsSection>
-                            <p>HP: {pokemon.stats.hp}</p>
-                            <p>Attack: {pokemon.stats.attack}</p>
-                            <p>Defense: {pokemon.stats.defense}</p>
+                            <p>{DESCRIPTION.HP} {pokemon.stats.hp}</p>
+                            <p>{DESCRIPTION.ATT} {pokemon.stats.attack}</p>
+                            <p>{DESCRIPTION.DEF} {pokemon.stats.defense}</p>
                         </StatsSection>
                         <StatsSection>
-                            <p>Special Atk: {pokemon.stats['special-attack']}</p>
-                            <p>Special Def: {pokemon.stats['special-defense']}</p>
-                            <p>Speed: {pokemon.stats.speed}</p>
+                            <p>{DESCRIPTION.S_ATT} {pokemon.stats['special-attack']}</p>
+                            <p>{DESCRIPTION.S_DEF} {pokemon.stats['special-defense']}</p>
+                            <p>{DESCRIPTION.SPEED} {pokemon.stats.speed}</p>
                         </StatsSection>
                         <StatsSection>
-                            <p>Total: {pokemon.stats.total}</p>
+                            <p>{DESCRIPTION.TOTAL} {pokemon.stats.total}</p>
                         </StatsSection>
                     </StatsContainer>
                     <LocationContainer>
-                        <h2>Location</h2>
+                        <h2>{DESCRIPTION.LOCATION}</h2>
                         {formattedLat}, {formattedLng}
-                        <Button onClick={handleShowDirections}>{showDirections ? 'Hide Directions' : 'Show Directions'}</Button>
+                        <Button onClick={handleShowDirections}>{showDirections ? DESCRIPTION.HIDE_DIR : DESCRIPTION.SHOW_DIR }</Button>
                     </LocationContainer>
                 </RightContainer>
             </DescContainer>
             {showDirections &&
                 <DirectionsContainer>
-                    <IconsContainer onClick={() => handleIconClick(DRIVING)} $isActive={chosenWay === DRIVING}>
+                    <IconsContainer onClick={() => handleIconClick(DIRECTIONS.DRIVING)} $isActive={chosenWay === DIRECTIONS.DRIVING}>
                         <img src={DrivingIcon} />
                     </IconsContainer>
-                    <IconsContainer onClick={() => handleIconClick(TRANSIT)} $isActive={chosenWay === TRANSIT}>
+                    <IconsContainer onClick={() => handleIconClick(DIRECTIONS.TRANSIT)} $isActive={chosenWay === DIRECTIONS.TRANSIT}>
                         <img src={TransportIcon} />
                     </IconsContainer>
-                    <IconsContainer onClick={() => handleIconClick(BICYCLING)} $isActive={chosenWay === BICYCLING}>
+                    <IconsContainer onClick={() => handleIconClick(DIRECTIONS.BICYCLING)} $isActive={chosenWay === DIRECTIONS.BICYCLING}>
                         <img src={BikeIcon} />
                     </IconsContainer>
-                    <IconsContainer onClick={() => handleIconClick(WALKING)} $isActive={chosenWay === WALKING}>
+                    <IconsContainer onClick={() => handleIconClick(DIRECTIONS.WALKING)} $isActive={chosenWay === DIRECTIONS.WALKING}>
                         <img src={PedestrianIcon} />
                     </IconsContainer>
                 </DirectionsContainer>
