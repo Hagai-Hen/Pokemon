@@ -92,16 +92,16 @@ export const PokeDesc = ({ pokemon, pokemonLocation }: PokeDescProps) => {
             </DescContainer>
             {showDirections &&
                 <DirectionsContainer>
-                    <IconsContainer onClick={() => handleIconClick(DRIVING)}>
+                    <IconsContainer onClick={() => handleIconClick(DRIVING)} $isActive={chosenWay === DRIVING}>
                         <img src={DrivingIcon} />
                     </IconsContainer>
-                    <IconsContainer onClick={() => handleIconClick(TRANSIT)}>
+                    <IconsContainer onClick={() => handleIconClick(TRANSIT)} $isActive={chosenWay === TRANSIT}>
                         <img src={TransportIcon} />
                     </IconsContainer>
-                    <IconsContainer onClick={() => handleIconClick(BICYCLING)}>
+                    <IconsContainer onClick={() => handleIconClick(BICYCLING)} $isActive={chosenWay === BICYCLING}>
                         <img src={BikeIcon} />
                     </IconsContainer>
-                    <IconsContainer onClick={() => handleIconClick(WALKING)}>
+                    <IconsContainer onClick={() => handleIconClick(WALKING)} $isActive={chosenWay === WALKING}>
                         <img src={PedestrianIcon} />
                     </IconsContainer>
                 </DirectionsContainer>

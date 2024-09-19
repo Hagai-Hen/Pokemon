@@ -189,7 +189,7 @@ export const LocationContainer = styled.div`
     }
 `;
 
-export const IconsContainer = styled.div`
+export const IconsContainer = styled.div<{ $isActive: boolean }>`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -200,6 +200,14 @@ export const IconsContainer = styled.div`
     width: 50px;
     height: 50px;
     border-radius: 10px;
+
+    &:active {
+        background: #e0e0e0;
+    }
+
+    ${({ $isActive }) => $isActive && `
+        background: #686188;
+    `}
 
     img {
         width: 20px;
