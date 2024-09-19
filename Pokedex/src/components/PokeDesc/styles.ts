@@ -188,3 +188,29 @@ export const LocationContainer = styled.div`
         gap: 10px;
     }
 `;
+
+export const IconsContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    margin-top: 20px;
+    background: #F7F7F9;
+    box-shadow: 2px 2px 4px 0px #00000026;
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+
+    img {
+        width: 20px;
+        height: 20px;
+    }
+`;
+
+export const DirectionsContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 30px;
+    cursor: pointer;
+`;

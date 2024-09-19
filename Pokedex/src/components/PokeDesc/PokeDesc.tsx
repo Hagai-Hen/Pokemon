@@ -1,4 +1,4 @@
-import { ButtonWrapper, ButtonContainer, DescContainer, DescSection, IconContainer, IdContainer, LeftContainer, RightContainer, Separator, StatsContainer, StatsSection, TitleContainer, Container, LocationContainer } from './styles';
+import { ButtonWrapper, ButtonContainer, DescContainer, DescSection, IconContainer, IdContainer, LeftContainer, RightContainer, Separator, StatsContainer, StatsSection, TitleContainer, Container, LocationContainer, IconsContainer, DirectionsContainer } from './styles';
 import { Coordinate, Pokemon } from '../../resources/interfaces';
 import FavIcon from '../../assets/fav_icon.png';
 import Button from '../Button/Button';
@@ -9,6 +9,11 @@ import { ClearButton } from '../DropDown/styles';
 import { HOME_ROUTE } from '../../resources/routes';
 import Map from '../Map/Map';
 import { useState } from 'react';
+import DrivingIcon from '../../assets/car.png';
+import TransportIcon from '../../assets/transport.png';
+import BikeIcon from '../../assets/bike.png';
+import PedestrianIcon from '../../assets/pedestrian.png';
+import { BICYCLING, DRIVING, TRANSIT, WALKING } from '../../resources/resources';
 
 interface PokeDescProps {
     pokemon: Pokemon | undefined;
@@ -18,9 +23,14 @@ interface PokeDescProps {
 export const PokeDesc = ({ pokemon, pokemonLocation }: PokeDescProps) => {
 
     const [showDirections, setShowDirections] = useState(false);
+    const [chosenWay, setChosenWay] = useState('DRIVING');
 
     const handleShowDirections = () => {
         setShowDirections(prev => !prev);
+    }
+
+    const handleIconClick = (chosenWay: string) => {
+        setChosenWay(chosenWay);
     }
 
     const navigate = useNavigate();
@@ -80,7 +90,23 @@ export const PokeDesc = ({ pokemon, pokemonLocation }: PokeDescProps) => {
                     </LocationContainer>
                 </RightContainer>
             </DescContainer>
-            <Map pokemonLocation={pokemonLocation} showDirections={showDirections} pokemonPic={pokemon.picture}/>
+            {showDirections &&
+                <DirectionsContainer>
+                    <IconsContainer onClick={() => handleIconClick(DRIVING)}>
+                        <img src={DrivingIcon} />
+                    </IconsContainer>
+                    <IconsContainer onClick={() => handleIconClick(TRANSIT)}>
+                        <img src={TransportIcon} />
+                    </IconsContainer>
+                    <IconsContainer onClick={() => handleIconClick(BICYCLING)}>
+                        <img src={BikeIcon} />
+                    </IconsContainer>
+                    <IconsContainer onClick={() => handleIconClick(WALKING)}>
+                        <img src={PedestrianIcon} />
+                    </IconsContainer>
+                </DirectionsContainer>
+            }
+            <Map pokemonLocation={pokemonLocation} showDirections={showDirections} pokemonPic={pokemon.picture} chosenWay={chosenWay}/>
         </Container>
     );
 };

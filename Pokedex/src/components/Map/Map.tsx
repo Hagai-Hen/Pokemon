@@ -7,10 +7,11 @@ interface MapProps {
   pokemonLocation: Coordinate;
   showDirections: boolean;
   pokemonPic: string;
+  chosenWay: string;
 }
 
-const Map: React.FC<MapProps> = ({ pokemonLocation, showDirections, pokemonPic }) => {
-  const { mapRef } = useGoogleMap(pokemonLocation, showDirections, pokemonPic);
+const Map: React.FC<MapProps> = ({ pokemonLocation, showDirections, pokemonPic, chosenWay }) => {
+  const { mapRef } = useGoogleMap(pokemonLocation, showDirections, pokemonPic, chosenWay);
 
   return (
     <Container>
