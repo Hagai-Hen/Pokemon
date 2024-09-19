@@ -58,7 +58,9 @@ const useGoogleMap = (
 
       if (showDirections) {
         const directionsService = new window.google.maps.DirectionsService();
-        const directionsRenderer = new window.google.maps.DirectionsRenderer();
+        const directionsRenderer = new window.google.maps.DirectionsRenderer({
+          suppressBicyclingLayer: true,
+        });
         directionsRenderer.setMap(map);
 
         const validModes = {
