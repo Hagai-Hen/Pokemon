@@ -8,3 +8,11 @@ export interface Pokemon {
     };
     description: string;
 }
+
+export interface PokemonApiCall {
+    url: string;
+    name: string;
+    type: {
+        name: string;
+    }
+}

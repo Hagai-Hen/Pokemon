@@ -15,6 +15,7 @@ function DescriptionPage({ setActivePage }: DescriptionPageProps) {
     setActivePage(DESC_PAGE_TITLE);
   }, []);
 
+<!--   setActivePage(DESC_PAGE_TITLE); -->
   const { name } = useParams<{ name: string }>();
   const { pokemons } = useGetPokemons();
   const { searchedPokemons } = useSearch(name);

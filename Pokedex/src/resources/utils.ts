@@ -1,4 +1,5 @@
 import { Pokemon } from "./interfaces";
+import { PokemonApiCall } from "./interfaces";
 
 const capitalizeFirstLetter = (str: string): string => {
     if (!str) return str;
@@ -10,6 +11,13 @@ interface FlavorTextEntry {
     language: {
         name: string;
     };
+}
+
+interface Stat {
+    stat: {
+        name: string;
+    };
+    base_stat: number;
 }
 
 export const fetchPokemonDetails = async (url: string): Promise<Pokemon> => {
@@ -26,17 +34,18 @@ export const fetchPokemonDetails = async (url: string): Promise<Pokemon> => {
     const description = englishFlavorTextEntry ? englishFlavorTextEntry.flavor_text : 'Description not available';
 
     
-    const stats = data.stats.reduce((acc: { [key: string]: number }, stat: any) => {
+    const stats = data.stats.reduce((acc: { [key: string]: number }, stat: Stat) => {
         acc[stat.stat.name] = stat.base_stat;
         return acc;
     }, {});
-    const total = data.stats.reduce((sum: number, stat: any) => sum + stat.base_stat, 0);
+
+    const total = data.stats.reduce((sum: number, stat: Stat) => sum + stat.base_stat, 0);
     stats['total'] = total;
 
     return {
         name: capitalizeFirstLetter(data.name),
         id: data.id,
-        types: data.types.map((t: any) => capitalizeFirstLetter(t.type.name)),
+        types: data.types.map((t: PokemonApiCall) => capitalizeFirstLetter(t.type.name)),
         picture: data.sprites.front_default,
         stats: stats,
         description: description,

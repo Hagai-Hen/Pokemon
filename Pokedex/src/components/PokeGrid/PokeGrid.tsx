@@ -19,8 +19,14 @@ const getFavorites = () => {
 };
 
 export const PokeGrid = ({ selectedOption, $isFav=false }: PokeGridProps) => {
+// =======
+//   searchQuery: string;
+// }
+
+// export const PokeGrid = ({ searchQuery }: PokeGridProps) => {
+// >>>>>>> main
   const { pokemons, loadMore } = useGetPokemons();
-  const { searchedPokemons } = useSearch(selectedOption);
+  const { searchedPokemons } = useSearch(searchQuery);
 
   const favorites = useMemo(() => getFavorites(), []);
 
@@ -38,6 +44,16 @@ export const PokeGrid = ({ selectedOption, $isFav=false }: PokeGridProps) => {
 
       <ButtonContainer>
         {!selectedOption && !$isFav && (
+// =======
+//       <GridContainer>
+//         {searchQuery
+//           ? searchedPokemons.map((p) => <PokeCard key={p.id} pokemon={p} />)
+//           : pokemons.map((p) => <PokeCard key={p.id} pokemon={p} />)}
+//       </GridContainer>
+
+//       <ButtonContainer>
+//         {!searchQuery && (
+// >>>>>>> main
           <Button
             $backgroundColor="white"
             $textColor={colors.primary}

@@ -46,8 +46,8 @@ export const TitleContainer = styled.h1`
     font-size: 22px;
     color: #373299;
     margin: 0;
-    justify-content: center;
     display: flex;
+    justify-content: center;
 `;
 
 export const IconContainer = styled.div`

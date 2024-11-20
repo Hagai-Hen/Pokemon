@@ -1,4 +1,4 @@
-import { HomePageButton, ButtonWrapper ,ButtonContainer, DescContainer, DescSection, IconContainer, IdContainer, LeftContainer, RightContainer, Separator, StatsContainer, StatsSection, TitleContainer, Container, } from './styles';
+import { ButtonWrapper ,ButtonContainer, DescContainer, DescSection, IconContainer, IdContainer, LeftContainer, RightContainer, Separator, StatsContainer, StatsSection, TitleContainer, Container, } from './styles';
 import { Pokemon } from '../../resources/interfaces';
 import FavIcon from '../../assets/fav_icon.png';
 import FavIconPressed from '../../assets/fav_icon_pressed.png';
@@ -10,6 +10,9 @@ import { colors, PokemonTypeColor } from '../../resources/colors';
 import { useState, useEffect } from 'react';
 import { FAV_LOCAL_STORAGE } from '../../resources/resources';
 import { HOME_PAGE_ROUTE } from '../../resources/routes';
+
+import { ClearButton } from '../DropDown/styles';
+
 
 interface PokeDescProps {
     pokemon: Pokemon | undefined;
@@ -54,7 +57,7 @@ export const PokeDesc  = ({ pokemon } : PokeDescProps) => {
         <Container>
             <ButtonWrapper>
                 <img src={RightArrow} onClick={handleClick}/>
-                <HomePageButton onClick={handleClick}>Home Page</HomePageButton>
+                <ClearButton onClick={handleClick}>Home Page</ClearButton>
             </ButtonWrapper>
             <DescContainer>
                 <IdContainer>#{pokemon.id}</IdContainer>
@@ -88,7 +91,7 @@ export const PokeDesc  = ({ pokemon } : PokeDescProps) => {
                         <StatsSection>
                             <p>Special Atk: {pokemon.stats['special-attack']}</p>
                             <p>Attack: {pokemon.stats['special-defense']}</p>
-                            <p>Speed : {pokemon.stats.speed}</p>
+                            <p>Speed: {pokemon.stats.speed}</p>
                         </StatsSection>
                         <StatsSection>
                             <p>Total: {pokemon.stats.total}</p>

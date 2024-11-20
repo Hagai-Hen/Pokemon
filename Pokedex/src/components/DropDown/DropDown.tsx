@@ -4,20 +4,56 @@ import { Button } from '../Button/Button.tsx';
 import { RECENT_SEARCHES_LOCAL_STORAGE } from '../../resources/resources.ts';
 
 interface DropdownProps {
-    options: string[];
-    selectedOption: string,
-    setSelectedOption: (opt: string) => void,
+    searchQuery: string,
+    setSearchQuery: (opt: string) => void,
 }
 
-export const DropDown: React.FC<DropdownProps> = ({ options, selectedOption, setSelectedOption }) => {
+const getInitialRecentSearches = () => {
+    const savedSearches = localStorage.getItem('recentSearches');
+    return savedSearches ? JSON.parse(savedSearches) : [];
+};
+
+const setRecentSearchesHelper = (prev: string[], inputValue: string) => {
+    const filteredList = prev.filter(item => item !== inputValue);
+    const updatedList = [inputValue, ...filteredList].slice(0, 3);
+    return updatedList;
+}
+
+export const DropDown: React.FC<DropdownProps> = ({ searchQuery, setSearchQuery }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [recentSearches, setRecentSearches] = useState<string[]>(options);
+    const [recentSearches, setRecentSearches] = useState<string[]>(getInitialRecentSearches);
+    const [inputValue, setInputValue] = useState(searchQuery);
     const containerRef = useRef<HTMLDivElement>(null);
+    const debounceTimer = useRef<number | null>(null);
 
     useEffect(() => {
         // Store options in local storage whenever they change
         localStorage.setItem(RECENT_SEARCHES_LOCAL_STORAGE, JSON.stringify(recentSearches));
     }, [recentSearches]);
+
+    useEffect(() => {
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+    useEffect(() => {
+        if (debounceTimer.current) {
+            clearTimeout(debounceTimer.current);
+        }
+        debounceTimer.current = setTimeout(() => {
+            setSearchQuery(inputValue);
+            if (!inputValue) return;
+
+            setRecentSearches((prev) => setRecentSearchesHelper(prev, inputValue));
+        }, 500);
+
+        // Cleanup function
+        return () => {
+            if (debounceTimer.current) {
+                clearTimeout(debounceTimer.current);
+            }
+        };
+    }, [inputValue, setSearchQuery]);
 
     const handleClickOutside = (event: MouseEvent) => {
         if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
@@ -26,12 +62,12 @@ export const DropDown: React.FC<DropdownProps> = ({ options, selectedOption, set
     };
 
     const handleOptionClick = (option: string) => {
-        setSelectedOption(option);
+        setInputValue(option);
         setIsOpen(false);
     };
 
-    const handleRemoveOption = (option: string) => {
-        setRecentSearches(recentSearches.filter(item => item !== option));
+    const handleRemoveOption = (index: number) => {
+        setRecentSearches((prevSearches) => prevSearches.filter((_, i) => i !== index));
     };
 
     const handleClear = () => {
@@ -39,19 +75,14 @@ export const DropDown: React.FC<DropdownProps> = ({ options, selectedOption, set
     };
 
     const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSelectedOption(event.target.value);
+        setInputValue(event.target.value);
     };
 
     const handleSearchClick = () => {
-        if (selectedOption) {
-            setRecentSearches((prev) => [...prev, selectedOption]);
-        }
-    }
+        if (!searchQuery) return;
 
-    useEffect(() => {
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
+        setRecentSearches((prev) => setRecentSearchesHelper(prev, searchQuery));
+    };
 
     return (
         <SearchContainer>
@@ -76,8 +107,30 @@ export const DropDown: React.FC<DropdownProps> = ({ options, selectedOption, set
             </DropdownList>
         </DropdownContainer>
         <Button onClick={handleSearchClick}>Search</Button>
+<!-- =======
+            <DropdownContainer ref={containerRef}>
+                <DropdownInput
+                    type="text"
+                    value={inputValue}
+                    onClick={() => setIsOpen(prev => !prev)}
+                    onChange={handleInputChange} 
+                />
+                <DropdownList isOpen={isOpen}>
+                    <DropdownHeader>
+                        Recent Searches
+                        <ClearButton onClick={handleClear}>Clear</ClearButton>
+                    </DropdownHeader>
+                    {recentSearches.map((option, index) => (
+                        <DropdownItem key={index}>
+                            <OptionText onClick={() => handleOptionClick(option)}>{option}</OptionText>
+                            <RemoveButton onClick={() => handleRemoveOption(index)}>X</RemoveButton>
+                        </DropdownItem>
+                    ))}
+                </DropdownList>
+            </DropdownContainer>
+            <Button onClick={handleSearchClick}>Search</Button> -->
+<!-- >>>>>>> main -->
         </SearchContainer>
-
     );
 };
 
