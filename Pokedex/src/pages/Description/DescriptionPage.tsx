@@ -2,6 +2,7 @@ import useGetPokemons from "../../hooks/useGetPokemons";
 import PokeDesc from "../../components/PokeDesc/PokeDesc";
 import { useParams } from "react-router-dom";
 import useSearch from "../../hooks/useSearch";
+import { useEffect } from "react";
 import { DESC_PAGE_TITLE } from "../../resources/resources";
 
 interface DescriptionPageProps {
@@ -9,7 +10,12 @@ interface DescriptionPageProps {
 }
 
 function DescriptionPage({ setActivePage }: DescriptionPageProps) {
-  setActivePage(DESC_PAGE_TITLE);
+
+  useEffect(() => {
+    setActivePage(DESC_PAGE_TITLE);
+  }, []);
+
+<!--   setActivePage(DESC_PAGE_TITLE); -->
   const { name } = useParams<{ name: string }>();
   const { pokemons } = useGetPokemons();
   const { searchedPokemons } = useSearch(name);

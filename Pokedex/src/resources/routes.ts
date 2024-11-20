@@ -3,5 +3,6 @@ export const PAGES = [
   { title: "Favorite", key: "Favorite", route: "/fav" },
 ];
 
-export const HOME_ROUTE = "/";
-export const DESCRIPTION_ROUTE = "/desc";
+export const HOME_PAGE_ROUTE = "/";
+export const FAV_PAGE_ROUTE = "/fav";
+export const DESC_PAGE_ROUTE = "/desc";

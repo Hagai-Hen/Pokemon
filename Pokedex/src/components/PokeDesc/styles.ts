@@ -8,7 +8,7 @@ export const Container = styled.div`
 `;
 
 
-export const DescContainer = styled.button`
+export const DescContainer = styled.div`
     display: flex;
     position: relative;
     align-items: center;
@@ -21,6 +21,8 @@ export const DescContainer = styled.button`
     box-shadow: 2px 2px 4px 0px #00000026;
     color: #020166;
     margin: 0 auto;
+    font-family: arial;
+    font-size: 14px;
 
     @media (max-width: 950px) {
         max-width: 650px;

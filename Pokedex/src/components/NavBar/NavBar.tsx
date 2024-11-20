@@ -24,6 +24,7 @@ export const NavBar = ({ activePage }: NavBarProps) => {
       <ButtonsContainer>
         {PAGES.map((page) => (
           <NavButton
+            key={page.key}
             onClick={() => onClickNavButton(page.route)}
             isClicked={activePage === page.key}
           >

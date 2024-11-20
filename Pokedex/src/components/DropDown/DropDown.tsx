@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { DropdownContainer, DropdownInput, DropdownList, DropdownItem, DropdownHeader, ClearButton, OptionText, RemoveButton, SearchContainer } from './styles.ts';
 import { Button } from '../Button/Button.tsx';
+import { RECENT_SEARCHES_LOCAL_STORAGE } from '../../resources/resources.ts';
 
 interface DropdownProps {
     searchQuery: string,
@@ -27,7 +28,7 @@ export const DropDown: React.FC<DropdownProps> = ({ searchQuery, setSearchQuery 
 
     useEffect(() => {
         // Store options in local storage whenever they change
-        localStorage.setItem('recentSearches', JSON.stringify(recentSearches));
+        localStorage.setItem(RECENT_SEARCHES_LOCAL_STORAGE, JSON.stringify(recentSearches));
     }, [recentSearches]);
 
     useEffect(() => {
@@ -85,6 +86,28 @@ export const DropDown: React.FC<DropdownProps> = ({ searchQuery, setSearchQuery 
 
     return (
         <SearchContainer>
+        <DropdownContainer ref={containerRef}>
+            <DropdownInput
+                type="text"
+                value={selectedOption}
+                onClick={() => setIsOpen(prev => !prev)}
+                onChange={handleInputChange} 
+            />
+            <DropdownList $isOpen={isOpen}>
+                <DropdownHeader>
+                    Recent Searches
+                    <ClearButton onClick={handleClear}>Clear</ClearButton>
+                </DropdownHeader>
+                {recentSearches.map((option, index) => (
+                    <DropdownItem key={index}>
+                        <OptionText onClick={() => handleOptionClick(option)}>{option}</OptionText>
+                        <RemoveButton onClick={() => handleRemoveOption(option)}>X</RemoveButton>
+                    </DropdownItem>
+                ))}
+            </DropdownList>
+        </DropdownContainer>
+        <Button onClick={handleSearchClick}>Search</Button>
+<!-- =======
             <DropdownContainer ref={containerRef}>
                 <DropdownInput
                     type="text"
@@ -105,7 +128,8 @@ export const DropDown: React.FC<DropdownProps> = ({ searchQuery, setSearchQuery 
                     ))}
                 </DropdownList>
             </DropdownContainer>
-            <Button onClick={handleSearchClick}>Search</Button>
+            <Button onClick={handleSearchClick}>Search</Button> -->
+<!-- >>>>>>> main -->
         </SearchContainer>
     );
 };

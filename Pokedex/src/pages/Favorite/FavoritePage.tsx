@@ -1,15 +1,19 @@
+import PokeGrid from "../../components/PokeGrid/PokeGrid";
 import { FAV_PAGE_TITLE } from "../../resources/resources";
+import { useEffect } from "react";
 interface FavPageProps {
   setActivePage: (page: string) => void,
 }
 
 function FavoritePage({ setActivePage } : FavPageProps) {
 
-  setActivePage(FAV_PAGE_TITLE);
+  useEffect(() => {
+    setActivePage(FAV_PAGE_TITLE);
+  }, [])
 
   return (
     <>
-      <h3>Favorite Page</h3>
+      <PokeGrid $isFav={true} />
     </>
   )
 }

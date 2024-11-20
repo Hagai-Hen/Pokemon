@@ -4,30 +4,61 @@ import { ButtonContainer, GridContainer } from "./styles";
 import Button from "../Button/Button";
 import { colors } from "../../resources/colors";
 import useSearch from "../../hooks/useSearch";
+import { Pokemon } from "../../resources/interfaces";
+import { useMemo } from "react";
+import { FAV_LOCAL_STORAGE } from "../../resources/resources";
 
 interface PokeGridProps {
-  searchQuery: string;
+  selectedOption?: string;
+  $isFav?: boolean;
 }
 
-export const PokeGrid = ({ searchQuery }: PokeGridProps) => {
+const getFavorites = () => {
+  const savedSearches = localStorage.getItem(FAV_LOCAL_STORAGE);
+  return savedSearches ? JSON.parse(savedSearches) : [];
+};
+
+export const PokeGrid = ({ selectedOption, $isFav=false }: PokeGridProps) => {
+// =======
+//   searchQuery: string;
+// }
+
+// export const PokeGrid = ({ searchQuery }: PokeGridProps) => {
+// >>>>>>> main
   const { pokemons, loadMore } = useGetPokemons();
   const { searchedPokemons } = useSearch(searchQuery);
 
+  const favorites = useMemo(() => getFavorites(), []);
+
   return (
     <>
-      <GridContainer>
-        {searchQuery
-          ? searchedPokemons.map((p) => <PokeCard key={p.id} pokemon={p} />)
-          : pokemons.map((p) => <PokeCard key={p.id} pokemon={p} />)}
+      <GridContainer $isFav={$isFav}>
+        {$isFav 
+            ? favorites.map((p: Pokemon) => <PokeCard key={p.id} pokemon={p} />)
+            : (selectedOption
+                ? searchedPokemons.map((p) => <PokeCard key={p.id} pokemon={p} />)
+                : pokemons.map((p) => <PokeCard key={p.id} pokemon={p} />)
+            )
+        }
       </GridContainer>
 
       <ButtonContainer>
-        {!searchQuery && (
+        {!selectedOption && !$isFav && (
+// =======
+//       <GridContainer>
+//         {searchQuery
+//           ? searchedPokemons.map((p) => <PokeCard key={p.id} pokemon={p} />)
+//           : pokemons.map((p) => <PokeCard key={p.id} pokemon={p} />)}
+//       </GridContainer>
+
+//       <ButtonContainer>
+//         {!searchQuery && (
+// >>>>>>> main
           <Button
-            backgroundColor="white"
-            textColor={colors.primary}
+            $backgroundColor="white"
+            $textColor={colors.primary}
             onClick={loadMore}
-            border={true}
+            $border={true}
           >
             Load More...
           </Button>
