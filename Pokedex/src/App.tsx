@@ -4,6 +4,7 @@ import { NavBar } from "./components/NavBar/NavBar";
 import { useState } from "react";
 import FavoritePage from "./pages/Favorite/FavoritePage";
 import DescriptionPage from "./pages/Description/DescriptionPage";
+import './resources/globals.css';
 
 function App() {
   const [activePage, setActivePage] = useState<string>('');
